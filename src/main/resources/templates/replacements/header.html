@@ -1,0 +1,165 @@
+<head data-th-fragment="head(tabtitle)">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <script type="text/javascript" src="/js/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" data-th-href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" data-th-href="@{/css/bootstrap-theme.min.css}"/>
+    <link rel="stylesheet" data-th-href="@{/css/main.css}"/>
+
+    <title data-th-text="${tabtitle}"></title>
+</head>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top" data-th-fragment="navigation" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <div class="container">
+
+        <!-- ############ INDEX ####################-->
+        <div class="nav navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#ravenchirp-navbar-collapse-1"
+                    aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" data-th-href="@{/}" data-th-text="#{index.title}"/>
+
+        </div>
+
+
+        <div class="collapse navbar-collapse" id="ravenchirp-navbar-collapse-1">
+
+            <ul class="nav navbar-nav">
+
+
+                <!-- ############ MY USERPAGE ####################-->
+                <li data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')}">
+                    <a data-th-text="#{user.title.tabbar}" data-th-href="@{/user}"/>
+                </li>
+
+                <!-- ############ POST DROPDOWN ####################-->
+                <li class="dropdown" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')}">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+                       data-th-text="#{posts.title.tabbar}">Dropdown
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" style="padding: 15px;">
+                        <li>
+                            <a data-th-href="@{/allposts}" data-th-text="#{posts.title.navbar.all}"></a>
+                        </li>
+                        <li>
+                            <a data-th-href="@{/followerposts}" data-th-text="#{posts.title.navbar.follower}"></a>
+                        </li>
+                        <li>
+                            <a data-th-href="@{/myposts}" data-th-text="#{posts.title.navbar.my}"></a>
+                        </li>
+                    </ul>
+
+                </li>
+
+                <!-- ############ ABOUT ####################-->
+                <li>
+                    <a data-th-text="#{about.title.tabbar}" data-th-href="@{/about}"/>
+                </li>
+
+                <!-- ############ SEARCH ####################-->
+
+                <li class="dropdown" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')}">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+                       data-th-text="#{search.title.tabbar}">Dropdown
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" style="padding: 15px; width: 400px">
+                        <li>
+                            <form th:action="@{/search/all}" method="post" accept-charset="utf-8" role="search">
+
+                                <div class="input-group">
+                                    <span class="input-group-addon" data-th-text="#{search.title.all}"/>
+                                    <input type="text" class="form-control" name="searchvalue" data-th-placeholder="#{search.text.all}"/>
+                                </div>
+                            </form>
+                        </li>
+
+                        <li>
+                            <form th:action="@{/search/tags}" method="post" accept-charset="utf-8" role="search">
+
+                                <div class="input-group" style="margin-top: 5px">
+                                    <span class="input-group-addon" data-th-text="#{search.title.tags}"/>
+                                    <input type="text" class="form-control" name="searchvalue" data-th-placeholder="#{search.text.tags}"/>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+
+                </li>
+            </ul>
+
+            <!-- ################################## NAVBAR RIGHT SIDE #################################-->
+            <ul class="nav navbar-nav navbar-right">
+
+                <!-- ############ LOGOUT ####################-->
+                <li class="navbar-btn navbar-right" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')}">
+                    <form data-th-action="@{/logout}" method="post">
+                        <button class="btn btn-link" type="submit" data-th-text="#{navigation.logout}"/>
+                    </form>
+                </li>
+
+                <li class="divider-vertical" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')}"/>
+
+                <!-- ############ LOGIN STATUS ####################-->
+                <li class="navbar-right" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')}">
+                    <a data-th-text="#{navigation.login.status(${#httpServletRequest.remoteUser})}"
+                       data-th-href="@{/user}"/>
+                </li>
+
+                <!-- ############ LOGIN DROPDOWN ####################-->
+                <li class="dropdown navbar-right" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')} == false">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+                       data-th-text="#{navigation.login}">Dropdown
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" style="padding: 15px;">
+                        <li>
+                            <form class="form-horizontal" data-th-action="@{/}" method="post" autocomplete="on" style="padding: 10px;">
+                                <div class="form-group" style="margin-bottom: 0px; top: 0px;">
+                                    <input class="form-control" type="text" name="username" autofocus="autofocus"
+                                           data-th-placeholder="#{register.username}" size="20"/>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 5px;">
+                                      <input class="form-control" type="password" name="password" data-th-placeholder="#{register.password}"
+                                             size="20"/>
+                                </div>
+                                <button class="btn btn-default col-md-11" type="submit" data-th-text="#{login.submit}"
+                                        style="clear: inherit; width: 250px; height: 32px; font-size: 13px; margin-top: 10px;">
+                                    Submit
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="divider-vertical" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')} == false"/>
+
+                <!-- ############ REGISTER ####################-->
+                <li class="navbar-right">
+                    <a data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')} == false" data-th-text="#{register.title}"
+                       data-th-href="@{/register}"/>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+</nav>

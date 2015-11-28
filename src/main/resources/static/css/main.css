@@ -1,0 +1,15 @@
+.footer {
+    position: absolute;
+    bottom: 0px;
+    color: lightgray;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 50px;
+    margin-top: 60px;
+}

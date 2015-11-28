@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<header data-th-replace="replacements/header :: head(#{register.tabtitle})"/>
+
+<body>
+
+<nav data-th-replace="replacements/header :: navigation"/>
+
+<div class="container-fluid">
+
+    <!-- ###################### TITLE ######################## -->
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <h2>
+                <span data-th-utext="#{register.new}">Login Failure</span>
+                <small data-th-text="#{register.new2}">Retry it !</small>
+            </h2>
+        </div>
+    </div>
+
+    <!-- ############################## USER INPUT AREA ########################################################################### -->
+    <div data-th-replace="replacements/userInput :: editUserInformation(submitButtonTitle=#{register.submit}, actionUrl='/register')"/>
+
+</div>
+
+</body>
+
+</html>

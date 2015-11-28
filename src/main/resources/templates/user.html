@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<header data-th-replace="replacements/header :: head(#{user.title(${user.username})})"/>
+
+<body>
+
+<nav data-th-replace="replacements/header :: navigation"/>
+
+
+<div class="container-fluid">
+
+    <div class="row" style="margin-top: 20px">
+        <!--Placeholder, keep me !-->
+    </div>
+
+
+    <!-- ############################# The user description to Edit/Follow ################################## -->
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6 ">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+
+                        <div class="col-md-offset-3 col-md-6 ">
+                            <h3 class="text-center" data-th-text="#{user.title(${user.username})}"/>
+                        </div>
+
+                        <!-- ################## Follow, Unfollow and Edit button ########################-->
+                        <div class="col-md-3">
+                            <form class="text-right" data-th-if="${myUserpage}" data-th-action="@{/edit}" method="get"
+                                  style="padding-top: 7%; padding-right: 3%;">
+                                <button class="btn btn-success" type="submit" data-th-text="#{user.edit}"
+                                        style="min-width: 70%">
+                                    Log in
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ################################## SHOW THE USER INFORMATION #################################### -->
+
+                <div class="panel-body">
+                    <h4>
+                        <span data-th-text="#{user.description}"></span>
+                        <small data-th-text="${user.description}"></small>
+                    </h4>
+                </div>
+
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h4>
+                            <span data-th-text="#{user.forename}"></span>
+                            <small data-th-text="${user.forename}"></small>
+                        </h4>
+                    </li>
+                    <li class="list-group-item">
+                        <h4>
+                            <span data-th-text="#{user.surname}"></span>
+                            <small data-th-text="${user.surname}"></small>
+                        </h4>
+                    </li>
+                    <li class="list-group-item">
+                        <h4>
+                            <span data-th-text="#{user.birthday}"></span>
+                            <small data-th-text="${user.getFormattedBirthday()}"></small>
+                        </h4>
+                    </li>
+                    <li class="list-group-item">
+                        <h4>
+                            <span data-th-text="#{user.gender}"></span>
+                            <small data-th-if="${user.gender == T(de.sigma.sigmabase.model.Gender).MALE}"
+                                   data-th-text="#{user.gender.male}"></small>
+                            <small data-th-if="${user.gender == T(de.sigma.sigmabase.model.Gender).FEMALE}"
+                                   data-th-text="#{user.gender.female}"></small>
+                        </h4>
+                    </li>
+                    <li class="list-group-item">
+                        <h4>
+                            <span data-th-text="#{user.email}"></span>
+                            <small data-th-text="${user.email}"></small>
+                        </h4>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

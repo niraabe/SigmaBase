@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<header data-th-replace="replacements/header :: head(#{login.tabtitle})"/>
+
+<body>
+
+<nav data-th-replace="replacements/header :: navigation"/>
+
+<div class="container-fluid">
+
+    <div class="row" style="margin-top: 20px">
+        <!--Placeholder, keep me !-->
+    </div>
+
+    <!-- ######################### MAGIC WORD VIDEO ##################################### -->
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" width="100%" height="100%"
+                        src="https://www.youtube.com/embed/fmz-K2hLwSI?autoplay=1&amp;showinfo=0&amp;controls=0" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- ######################### TITLE ##################################### -->
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <h2>
+                <span data-th-utext="#{login.failure}">Login Failure</span>
+                <small data-th-text="#{login.failure2}">Retry it !</small>
+            </h2>
+        </div>
+    </div>
+
+    <!-- ######################### USER INPUT ##################################### -->
+    <div class="row">
+
+        <form data-th-action="@{/}" method="post" autocomplete="on" data-th-autocomplete="on" accept-charset="utf-8">
+
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group">
+                    <label for="username" data-th-text="#{register.username}">Username</label>
+                    <input type="text" class="form-control" id="username" data-th-placeholder="#{register.username}" name="username"
+                           autofocus="autofocus" autocomplete="on"/>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group">
+                    <label for="password" data-th-text="#{register.password}">Password</label>
+                    <input type="password" class="form-control" id="password" data-th-placeholder="#{register.password}" name="password"
+                           autocomplete="on"/>
+                </div>
+            </div>
+            <div class="col-md-4 col-md-offset-4 text-center">
+                <button class="btn btn-success" type="submit" data-th-text="#{login.submit}" style="width: 40%">
+                    Log in
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

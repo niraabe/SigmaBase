@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<header data-th-replace="replacements/header :: head(#{edit.tabtitle(${user.username})})"/>
+
+<body>
+
+<nav data-th-replace="replacements/header :: navigation"/>
+
+<div class="container-fluid">
+
+    <!-- ############### TITLE ############################# -->
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <h2 class="text-center">
+                <span data-th-utext="#{edit.title}">Login Failure</span>
+            </h2>
+        </div>
+    </div>
+
+    <!-- ############### USER INPUT AREA ############################# -->
+    <div data-th-replace="replacements/userInput :: editUserInformation(submitButtonTitle=#{edit.submit}, actionUrl='/edit')"/>
+
+</div>
+
+</body>
+
+</html>

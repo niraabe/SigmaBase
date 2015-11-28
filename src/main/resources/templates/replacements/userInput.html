@@ -1,0 +1,236 @@
+<!-- ###################################################################################### -->
+<!-- Parameters of this replacement are the submit button name as string and the action url -->
+<!-- ###################################################################################### -->
+<div data-th-fragment="editUserInformation" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <!-- ################### START THE DATEPICKER ###########################-->
+    <link rel="stylesheet" data-th-href="@{/css/datepicker.css}"/>
+    <script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/js/startDatePicker.js"></script>
+
+    <div class="row">
+
+        <form th:action="@{${actionUrl}}" th:object="${user}" method="post" accept-charset="utf-8">
+
+            <!-- ############################# USERNAME #######################################-->
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group">
+                    <label for="username" data-th-text="#{register.username}">Username</label>
+                    <input type="text" class="form-control" id="username" data-th-placeholder="#{register.username}" th:field="*{username}"
+                           autofocus="autofocus"/>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${usernameLength}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.usernameLength}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${usernameDuplicate}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.usernameDuplicate}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${usernameInvalid}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.usernameInvalid}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${usernameToLong}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.usernameToLong}">Placeholder</span>
+                </div>
+            </div>
+
+            <!-- ############################# PASSWORD #######################################-->
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group">
+                    <label for="password" data-th-text="#{register.password}">Password</label>
+                    <input type="password" class="form-control" id="password" data-th-placeholder="#{register.password}"
+                           th:field="*{password}"/>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${passwordLength}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.passwordLength}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${passwordToLong}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.passwordToLong}">Placeholder</span>
+                </div>
+            </div>
+
+            <!-- ############################# E-MAIL #######################################-->
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group">
+                    <label for="email" data-th-text="#{register.email}">Password</label>
+                    <input type="email" class="form-control" id="email" data-th-placeholder="#{register.email}"
+                           th:field="*{email}"/>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${emailLength}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.emailLength}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${emailToLong}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.emailToLong}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${emailInvalid}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.emailInvalid}">Placeholder</span>
+                </div>
+            </div>
+
+            <!-- ############################# FORENAME #######################################-->
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group">
+                    <label for="forename1" data-th-text="#{register.forename}">Forname</label>
+                    <input type="text" class="form-control" id="forename1" data-th-placeholder="#{register.forename}"
+                           th:field="*{forename}"/>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${forenameLength}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.forenameLength}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${forenameInvalid}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.forenameInvalid}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${forenameToLong}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.forenameToLong}">Placeholder</span>
+                </div>
+            </div>
+
+            <!-- ############################# SURNAME #######################################-->
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group">
+                    <label for="surname1" data-th-text="#{register.surname}">Surname</label>
+                    <input type="text" class="form-control" id="surname1" data-th-placeholder="#{register.surname}" th:field="*{surname}"/>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${surnameLength}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.surnameLength}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${surnameInvalid}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.surnameInvalid}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${surnameToLong}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.surnameToLong}">Placeholder</span>
+                </div>
+            </div>
+
+            <!-- ############################# BIRTHDAY #######################################-->
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group">
+                    <label for="datepicker" data-th-text="#{register.birthday}">Birthday</label>
+
+                    <div class="input-group date" id="datepicker" data-date="01.01.1980" data-date-format="dd.mm.yyyy"
+                         data-date-viewmode="years"
+                         data-date-autoclose="true">
+                        <input class="form-control" type="date" readonly="" th:field="*{birthday}"/>
+
+                        <span class="add-on input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${birthdayNull}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.birthdayNull}">Placeholder</span>
+                </div>
+            </div>
+
+            <!-- ############################# GENDER #######################################-->
+            <div class="col-md-4 col-md-offset-4">
+                <label for="genderOption" data-th-text="#{register.gender}">Gender</label>
+
+                <div class="form-group" id="genderOption">
+
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" id="genderOptions1" value="MALE" th:field="*{gender}"/>
+                            <label for="genderOptions1" data-th-text="#{register.gender.male}" style="color: #737373">Male</label>
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" id="genderOptions2" value="FEMALE" th:field="*{gender}"/>
+                            <label for="genderOptions2" data-th-text="#{register.gender.female}" style="color: #737373">Female</label>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${birthdayNull}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.genderNull}">Placeholder</span>
+                </div>
+            </div>
+
+            <!-- ############################# DESCRIPTION #######################################-->
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group">
+                    <label for="description1" data-th-text="#{register.userdescription}">Description</label>
+                    <textarea type="text" class="form-control" id="description1" data-th-placeholder="#{register.userdescription2}"
+                              th:field="*{description}" rows="5" style="resize: none;" maxlength="1024"/>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${descriptionLength}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.descriptionLength}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${descriptionInvalid}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.descriptionInvalid}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${descriptionToLong}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{register.error.descriptionToLong}">Placeholder</span>
+                </div>
+            </div>
+
+            <!-- ############################# SUBMIT BUTTON #######################################-->
+            <div class="col-md-4 col-md-offset-4 text-center" style="padding-top: 1%;">
+                <button class="btn btn-success" type="submit" data-th-text="${submitButtonTitle}" style="min-width: 40%">
+                    Edit User !
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+</div>

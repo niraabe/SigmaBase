@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<header data-th-replace="replacements/header :: head(#{index.tabtitle})"/>
+
+<body>
+
+<nav data-th-replace="replacements/header :: navigation"/>
+
+<!--#################### ONLY FOR VISITORS #################################-->
+<div class="container-fluid" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')} == false">
+
+    <div class="row" style="margin-top: 10%">
+        <!--Placeholder, keep me !-->
+    </div>
+
+    <div class="row">
+
+        <div class="jumbotron col-md-offset-2 col-md-8">
+            <h1 data-th-text="#{index.welcome}">Welcome !</h1>
+
+            <p data-th-text="#{index.welcome2}">Welcome !</p>
+
+            <p><a class="btn btn-primary btn-lg" data-th-href="@{/register}" data-th-text="#{index.register}" role="button">Sign up !</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!--#################### FOR LOGGED IN USERS #################################-->
+
+<div class="container-fluid" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')}">
+
+    <div class="row" style="margin-top: 1%">
+        <!--Placeholder, keep me !-->
+    </div>
+
+    <!-- ####################### POSTS ######################### -->
+    <div class="row" style="margin-top: 1%">
+        <!--Placeholder, keep me !-->
+    </div>
+    <div data-th-replace="replacements/facility :: showFacilitys"/>
+
+
+</div>
+
+</body>
+
+</html>

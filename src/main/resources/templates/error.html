@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<header data-th-replace="replacements/header :: head(#{error.tabtitle})"/>
+
+<body>
+
+<nav data-th-replace="replacements/header :: navigation"/>
+
+<div class="container-fluid">
+
+    <div class="row" style="margin-top: 10%">
+        <!--Placeholder, keep me !-->
+    </div>
+
+    <div class="row">
+
+        <div class="jumbotron col-md-offset-2 col-md-8">
+            <h1 data-th-text="#{error.title}">Welcome !</h1>
+
+            <p data-th-text="#{error.text}">Welcome !</p>
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/EsWHyBOk2iQ?showinfo=0&amp;controls=1"
+                    frameborder="0"></iframe>
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/0uBOtQOO70Y?showinfo=0&amp;controls=1"
+                    frameborder="0"></iframe>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>

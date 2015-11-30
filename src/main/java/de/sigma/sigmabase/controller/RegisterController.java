@@ -1,6 +1,6 @@
 package de.sigma.sigmabase.controller;
 
-import de.sigma.sigmabase.controller.validation.UserInputValidation;
+import de.sigma.sigmabase.controller.util.UserInputValidation;
 import de.sigma.sigmabase.model.user.RegistrationKey;
 import de.sigma.sigmabase.model.user.User;
 import de.sigma.sigmabase.service.RegistrationKeyService;

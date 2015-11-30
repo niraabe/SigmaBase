@@ -31,8 +31,8 @@ public class RegistrationKey {
     public String toString() {
         return "RegistrationKey{" +
                 "id=" + id +
-                ", userRole=" + userRole +
                 ", key='" + key + '\'' +
+                ", userRole=" + userRole +
                 '}';
     }
 
@@ -42,17 +42,16 @@ public class RegistrationKey {
         if (!(o instanceof RegistrationKey)) return false;
         RegistrationKey that = (RegistrationKey) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(userRole, that.userRole) &&
                 Objects.equals(key, that.key) &&
-                Objects.equals(user, that.user);
+                Objects.equals(userRole, that.userRole);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userRole, key, user);
+        return Objects.hash(id, key, userRole);
     }
 
-    /*
+/*
     ############# Getter & Setter #############
      */
 

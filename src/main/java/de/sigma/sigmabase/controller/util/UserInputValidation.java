@@ -1,4 +1,4 @@
-package de.sigma.sigmabase.controller.validation;
+package de.sigma.sigmabase.controller.util;
 
 import de.sigma.sigmabase.model.user.Gender;
 import de.sigma.sigmabase.model.user.User;

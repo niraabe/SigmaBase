@@ -121,6 +121,15 @@
                        data-th-href="@{/user}"/>
                 </li>
 
+                <!-- ############ ADMIN CENTER ####################-->
+                <li class="navbar-right" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')}">
+                        <!--<a data-th-if="${user.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).ADMIN}"-->
+                    <!--TODO nils das hier muss noch gefixt werden !-->
+                           <a data-th-text="#{navigation.admin}"
+                           data-th-href="@{/admin}"/>
+                </li>
+
+
                 <!-- ############ LOGIN DROPDOWN ####################-->
                 <li class="dropdown navbar-right" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')} == false">
 

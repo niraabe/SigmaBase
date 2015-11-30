@@ -189,7 +189,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3" data-th-if="${birthdayNull}" style="padding-top: 18px">
+
+            <!-- ############################# DESCRIPTION #######################################-->
+            <div class="col-md-3" data-th-if="${genderNull}" style="padding-top: 18px">
                 <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span data-th-text="#{register.error.genderNull}">Placeholder</span>
@@ -220,6 +222,15 @@
                 <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span data-th-text="#{register.error.descriptionToLong}">Placeholder</span>
+                </div>
+            </div>
+
+            <!-- ############################# KEY #################################################-->
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group">
+                    <label for="key" data-th-text="#{register.registrationKey}">Description</label>
+                    <textarea type="text" class="form-control" id="key" data-th-placeholder="#{register.registrationKey2}"
+                              th:value="${key}" name="key" rows="5" style="resize: none;"/>
                 </div>
             </div>
 

@@ -1,7 +1,7 @@
 package de.sigma.sigmabase.controller;
 
 import de.sigma.sigmabase.model.Facility;
-import de.sigma.sigmabase.model.User;
+import de.sigma.sigmabase.model.user.User;
 import de.sigma.sigmabase.service.FacilityService;
 import de.sigma.sigmabase.service.UserService;
 import org.slf4j.Logger;

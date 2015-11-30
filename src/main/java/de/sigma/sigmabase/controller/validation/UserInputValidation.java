@@ -1,7 +1,7 @@
 package de.sigma.sigmabase.controller.validation;
 
-import de.sigma.sigmabase.model.Gender;
-import de.sigma.sigmabase.model.User;
+import de.sigma.sigmabase.model.user.Gender;
+import de.sigma.sigmabase.model.user.User;
 import de.sigma.sigmabase.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -250,7 +250,7 @@ public class UserInputValidation {
     public boolean validateGender(ModelAndView mav, Gender gender) {
         if (gender == null) {
             LOG.info("User input for gender is null !");
-            mav.addObject("descriptionNull", true);
+            mav.addObject("genderNull", true);
             return true;
         }
         return false;

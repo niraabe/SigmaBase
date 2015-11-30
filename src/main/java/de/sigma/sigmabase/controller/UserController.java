@@ -1,7 +1,7 @@
 package de.sigma.sigmabase.controller;
 
 import de.sigma.sigmabase.controller.validation.UserInputValidation;
-import de.sigma.sigmabase.model.User;
+import de.sigma.sigmabase.model.user.User;
 import de.sigma.sigmabase.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

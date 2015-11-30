@@ -1,6 +1,6 @@
 package de.sigma.sigmabase.repository;
 
-import de.sigma.sigmabase.model.User;
+import de.sigma.sigmabase.model.user.User;
 import org.springframework.data.repository.CrudRepository;
 
 /**

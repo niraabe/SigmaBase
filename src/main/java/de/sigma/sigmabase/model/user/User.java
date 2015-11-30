@@ -1,4 +1,4 @@
-package de.sigma.sigmabase.model;
+package de.sigma.sigmabase.model.user;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -7,7 +7,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -23,7 +22,7 @@ import java.util.Objects;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     @Version
@@ -63,6 +62,14 @@ public class User {
     @Column(nullable = false, length = 1024)
     private String description;
 
+    @OneToOne
+    @JoinColumn(name = "registrsationkey")
+    private RegistrationKey registrationKey;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private UserRole userRole;
+
     @PrePersist
     void onCreate() {
         setCreationdate(new DateTime());
@@ -72,6 +79,26 @@ public class User {
     @PreUpdate
     void onPersist() {
         setLastmodified(new DateTime());
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", version=" + version +
+                ", lastmodified=" + lastmodified +
+                ", creationdate=" + creationdate +
+                ", username='" + username + '\'' +
+                ", forename='" + forename + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthday=" + birthday +
+                ", gender=" + gender +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", description='" + description + '\'' +
+                ", registrationKey=" + registrationKey +
+                ", userRole=" + userRole +
+                '}';
     }
 
     @Override
@@ -90,30 +117,15 @@ public class User {
                 Objects.equals(gender, user.gender) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(description, user.description);
+                Objects.equals(description, user.description) &&
+                Objects.equals(registrationKey, user.registrationKey) &&
+                Objects.equals(userRole, user.userRole);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, version, lastmodified, creationdate, username, forename, surname, birthday, gender, password, email, description);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", version=" + version +
-                ", lastmodified=" + lastmodified +
-                ", creationdate=" + creationdate +
-                ", username='" + username + '\'' +
-                ", forename='" + forename + '\'' +
-                ", surname='" + surname + '\'' +
-                ", birthday=" + birthday +
-                ", gender=" + gender +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return Objects.hash(id, version, lastmodified, creationdate, username, forename, surname, birthday, gender, password, email,
+                description, registrationKey, userRole);
     }
 
     /*
@@ -219,6 +231,22 @@ public class User {
     public String getFormattedBirthday() {
         DateTimeFormatter dtf = org.joda.time.format.DateTimeFormat.forPattern("dd.MM.yyyy");
         return birthday.toString(dtf);
+    }
+
+    public RegistrationKey getRegistrationKey() {
+        return registrationKey;
+    }
+
+    public void setRegistrationKey(RegistrationKey registrationKey) {
+        this.registrationKey = registrationKey;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 }
 

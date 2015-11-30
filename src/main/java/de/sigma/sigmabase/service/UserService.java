@@ -1,6 +1,8 @@
 package de.sigma.sigmabase.service;
 
-import de.sigma.sigmabase.model.User;
+import de.sigma.sigmabase.model.user.RegistrationKey;
+import de.sigma.sigmabase.model.user.User;
+import de.sigma.sigmabase.repository.RegistrationKeyRepository;
 import de.sigma.sigmabase.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -12,14 +14,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.apache.commons.lang3.Validate.notNull;
 
 /**
  * This service holds all actions for user operations
- *
+ * <p/>
  * Created by:  nilsraabe
  * Date:        08.06.15
  * Time:        20:54
@@ -29,7 +30,6 @@ import static org.apache.commons.lang3.Validate.notNull;
 public class UserService {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
-
 
     @Autowired
     private UserRepository userRepository;
@@ -99,6 +99,7 @@ public class UserService {
      * @param user
      * @return
      */
+    @Transactional
     public User registerUser(User user) {
 
         if (existUser(user.getUsername())) {
@@ -111,10 +112,10 @@ public class UserService {
         password = new ShaPasswordEncoder(256).encodePassword(password, null);
         user.setPassword(password);
 
-        //Store the user in the db
+        //Store the user with registration key in the db
         userRepository.save(user);
 
-        LOG.info("Created and stored user in db. user: '{}'", user);
+        LOG.info("Created and stored user with reg key in db. user: '{}'", user);
 
         return user;
     }

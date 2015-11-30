@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<header data-th-replace="replacements/header :: head(#{error.tabtitle})"/>
+
+<body>
+
+<nav data-th-replace="replacements/header :: navigation"/>
+
+<div class="container-fluid">
+
+    <div class="row" style="margin-top: 10%">
+        <!--Placeholder, keep me !-->
+    </div>
+
+    <div class="row">
+
+        <div class="jumbotron col-md-offset-2 col-md-8">
+            <h1 data-th-text="#{error.registrationkey.title}">Placeholder</h1>
+
+            <p data-th-text="#{error.registrationkey.text}">Placeholder</p>
+
+            <p><a class="btn btn-primary btn-lg" data-th-href="@{http://www.team-sigma.de/kontakt.html}"
+                  data-th-text="#{error.registrationkey.contact}"></a>
+            </p>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>

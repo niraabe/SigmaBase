@@ -27,7 +27,7 @@
                             <h3 class="text-center" data-th-text="#{user.title(${user.username})}"/>
                         </div>
 
-                        <!-- ################## Follow, Unfollow and Edit button ########################-->
+                        <!-- ################## Edit button ########################-->
                         <div class="col-md-3">
                             <form class="text-right" data-th-if="${myUserpage}" data-th-action="@{/edit}" method="get"
                                   style="padding-top: 7%; padding-right: 3%;">
@@ -72,9 +72,9 @@
                     <li class="list-group-item">
                         <h4>
                             <span data-th-text="#{user.gender}"></span>
-                            <small data-th-if="${user.gender == T(de.sigma.sigmabase.model.Gender).MALE}"
+                            <small data-th-if="${user.gender == T(de.sigma.sigmabase.model.user.Gender).MALE}"
                                    data-th-text="#{user.gender.male}"></small>
-                            <small data-th-if="${user.gender == T(de.sigma.sigmabase.model.Gender).FEMALE}"
+                            <small data-th-if="${user.gender == T(de.sigma.sigmabase.model.user.Gender).FEMALE}"
                                    data-th-text="#{user.gender.female}"></small>
                         </h4>
                     </li>

@@ -1,4 +1,4 @@
-package de.sigma.sigmabase.model;
+package de.sigma.sigmabase.model.user;
 
 /**
  * The Gender of a user

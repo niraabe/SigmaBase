@@ -19,6 +19,8 @@ public interface RegistrationKeyRepository extends CrudRepository<RegistrationKe
 
     RegistrationKey findByKey(String key);
 
+    RegistrationKey findById(long id);
+
     @Query(value = "SELECT k FROM RegistrationKey AS k WHERE k.user IS NOT null ORDER BY k.creationdate DESC")
     Page<RegistrationKey> findUsedRegistrationKeys(Pageable pageable);
 

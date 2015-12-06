@@ -33,10 +33,34 @@ public class RegistrationKeyService {
      * @param keyAsString
      * @return
      */
-    public RegistrationKey getRegistrationKey(String keyAsString) {
+    public RegistrationKey getRegistrationKeyByKey(String keyAsString) {
         RegistrationKey key = registrationKeyRepository.findByKey(keyAsString);
         LOG.debug("Returning following registration Key: {}", key);
         return key;
+    }
+
+    /**
+     * Get a specific key from the database by the key itself
+     *
+     * @param id
+     * @return
+     */
+    public RegistrationKey getRegistrationKeyById(long id) {
+        RegistrationKey key = registrationKeyRepository.findById(id);
+        LOG.debug("Returning following registration Key: {}", key);
+        return key;
+    }
+
+    /**
+     * Get a specific key from the database by the key itself
+     *
+     * @param id
+     * @return
+     */
+    public boolean deleteRegistrationKeyById(long id) {
+        registrationKeyRepository.delete(id);
+        LOG.debug("Deleted registration Key, id: {}", id);
+        return true;
     }
 
     /**
@@ -66,10 +90,12 @@ public class RegistrationKeyService {
      * @return
      */
     public Page<RegistrationKey> getUsedRegistrationKeys(Pageable pageable) {
+        LOG.debug("Returned pageable of used registration keys.");
         return registrationKeyRepository.findUsedRegistrationKeys(pageable);
     }
 
     public Page<RegistrationKey> getUnUsedRegistrationKeys(Pageable pageable) {
+        LOG.debug("Returned pageable of UNused registration keys.");
         return registrationKeyRepository.findUnUsedRegistrationKeys(pageable);
     }
 

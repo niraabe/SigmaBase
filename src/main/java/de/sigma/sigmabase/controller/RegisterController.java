@@ -77,7 +77,7 @@ public class RegisterController {
             Validate.isTrue(user.getRegistrationKey() == null, "Registrationkey of user to register isn't null, user: {} ", user);
 
             //Get the registration key from the database
-            RegistrationKey registrationKey = registrationKeyService.getRegistrationKey(keyAsString);
+            RegistrationKey registrationKey = registrationKeyService.getRegistrationKeyByKey(keyAsString);
             if (registrationKey == null || registrationKey.getUser() != null) {
                 LOG.warn("Registrationkey error ! keyAsString: {}, user: {}", keyAsString, user);
                 return new ModelAndView("errorRegistrationKey");

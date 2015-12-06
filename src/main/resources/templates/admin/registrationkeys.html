@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <header data-th-replace="replacements/header :: head(#{index.tabtitle})"/>
 
@@ -38,10 +38,10 @@
                         <th>Name</th>
                         <th>Nachname</th>
                         <th>Aktivierungscode</th>
-                        <th>Löschen</th>
+                        <th data-th-if="${deleteGranted}">Löschen</th>
                     </tr>
                     </thead>
-                    <tbody data-th-each="key : ${keys}">
+                    <tbody data-th-each="key : ${page.content}">
                     <tr>
                         <td data-th-text="${key.id}"></td>
                         <td data-th-text="${key.creationdate}"></td>
@@ -49,15 +49,21 @@
                         <td data-th-text="${key.userRole}"></td>
 
                         <td data-th-if="${key.user} != null" data-th-text="${key.user.username}"></td>
-                        <td data-th-if="${key.user} == null" >-</td>
+                        <td data-th-if="${key.user} == null">-</td>
 
                         <td data-th-if="${key.user} != null" data-th-text="${key.user.forename}"></td>
-                        <td data-th-if="${key.user} == null" >-</td>
+                        <td data-th-if="${key.user} == null">-</td>
 
                         <td data-th-if="${key.user} != null" data-th-text="${key.user.surname}"></td>
-                        <td data-th-if="${key.user} == null" >-</td>
-                        <td>  <button type="button" class="btn btn-primary btn-xs">Aktivierungscode</button></td>
-                        <td><button type="button" class="btn btn-danger btn-xs">Löschen</button></td>
+                        <td data-th-if="${key.user} == null">-</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-xs">Aktivierungscode</button>
+                        </td>
+                        <td data-th-if="${deleteGranted}">
+                            <form data-th-action="@{/admin/deletekey/} + ${key.id}" method="post">
+                                <button class="btn btn-danger btn-xs" type="submit" data-th-text="#{admin.button.delete}"></button>
+                            </form>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -66,7 +72,7 @@
 
         <!-- ############### PREVIOUS - NEXT BUTTONS ###################### -->
         <div class="row" data-th-if="${totalKeySize > 0}">
-            <div class="col-md-offset-4 col-md-4 ">
+            <div class="col-md-offset-3 col-md-6 ">
                 <nav>
                     <ul class="pager">
                         <li data-th-if="${page.first == false}" class="previous">
@@ -76,6 +82,9 @@
 
                             <a data-th-if="${searchpage == null}" data-th-href="@{${resolvingUrl}(page=${page.number-1})}"
                                data-th-text="#{pagination.newer}"/>
+                        </li>
+                        <li>
+                            <div data-th-text="#{pagination.page} + ' ' + ${page.number+1}"></div>
                         </li>
                         <li data-th-if="${page.last == false}" class="next">
 

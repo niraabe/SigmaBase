@@ -138,6 +138,7 @@ public class AdminController {
         mav.addObject("page", usedRegistrationKeys);
         mav.addObject("totalKeySize", usedRegistrationKeys.getTotalElements());
         mav.addObject("resolvingUrl", "/admin/usedkeys");
+        mav.addObject("deleteGranted", false);
 
         return mav;
     }
@@ -172,6 +173,7 @@ public class AdminController {
         mav.addObject("page", usedRegistrationKeys);
         mav.addObject("totalKeySize", usedRegistrationKeys.getTotalElements());
         mav.addObject("resolvingUrl", "/admin/unusedkeys");
+        mav.addObject("deleteGranted", true);
 
         return mav;
     }

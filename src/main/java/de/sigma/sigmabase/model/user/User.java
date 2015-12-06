@@ -62,8 +62,7 @@ public class User {
     @Column(nullable = false, length = 1024)
     private String description;
 
-    @OneToOne
-    @JoinColumn(name = "registrsationkey")
+    @OneToOne(cascade = CascadeType.ALL, optional = true)
     private RegistrationKey registrationKey;
 
     @Enumerated(EnumType.STRING)

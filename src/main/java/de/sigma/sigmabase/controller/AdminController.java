@@ -9,8 +9,12 @@ import de.sigma.sigmabase.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,7 +46,7 @@ public class AdminController {
     public ModelAndView adminPage() {
         LOG.info("Request GET to '/admin'");
 
-        ModelAndView mav = new ModelAndView("admin");
+        ModelAndView mav = new ModelAndView("admin/admin");
 
         //Do we have a logged in User ?
         boolean authenticated = userService.isAuthenticated();
@@ -52,6 +56,7 @@ public class AdminController {
             //Get the session user
             User user = userService.getUser();
             mav.addObject("user", user);
+            mav.addObject("key", new RegistrationKey());
 
             //Is the user in the role ADMIN ?
             if (user.getUserRole() != UserRole.ADMIN) {
@@ -65,10 +70,10 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/addregistrationkey", method = RequestMethod.POST)
-    public ModelAndView addRegistrationKey() {
+    public ModelAndView addRegistrationKey(@ModelAttribute("key") RegistrationKey key) {
         LOG.info("Request POST to '/admin/addregistrationkey'");
 
-        ModelAndView mav = new ModelAndView("admin");
+        ModelAndView mav = new ModelAndView("admin/admin");
 
         //Do we have a logged in User ?
         boolean authenticated = userService.isAuthenticated();
@@ -91,14 +96,82 @@ public class AdminController {
         }
 
         //user has the permission, go ahead
-        String key = registrationKeyGenerator.generatePassword();
+        String keyAsString = registrationKeyGenerator.generatePassword();
+        key.setKey(keyAsString);
 
-        RegistrationKey registrationKey = new RegistrationKey();
-        registrationKey.setUserRole(UserRole.ADMIN);
-        registrationKey.setKey(key);
-        registrationKeyService.saveRegistrationKey(registrationKey);
+        //Set the new key in the model to show it to the admin
+        mav.addObject("generatedKey", key);
+
+        registrationKeyService.saveRegistrationKey(key);
         LOG.info("Generated and stored the following key: {}", key);
-        LOG.info("Generated and stored the following key: {}", key.length());
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/admin/usedkeys", method = RequestMethod.GET)
+    public ModelAndView usedKeys(@PageableDefault(size = 6) Pageable pageable) {
+        LOG.info("Request GET to '/admin/usedkeys'");
+
+        ModelAndView mav = new ModelAndView("/admin/registrationkeys");
+
+        //Do we have a logged in User ?
+        boolean authenticated = userService.isAuthenticated();
+        mav.addObject("auth", authenticated);
+
+        if (authenticated) {
+            //Get the session user
+            User user = userService.getUser();
+            mav.addObject("user", user);
+            mav.addObject("key", new RegistrationKey());
+
+            //Is the user in the role ADMIN ?
+            if (user.getUserRole() != UserRole.ADMIN) {
+                return indexController.index(new PageRequest(0, 5));
+            }
+        } else {
+            return indexController.index(new PageRequest(0, 5));
+        }
+
+        //The user is logged in and is in the admin role, setup content
+        Page<RegistrationKey> usedRegistrationKeys = registrationKeyService.getUsedRegistrationKeys(pageable);
+        mav.addObject("keys", usedRegistrationKeys);
+        mav.addObject("page", usedRegistrationKeys);
+        mav.addObject("totalKeySize", usedRegistrationKeys.getTotalElements());
+        mav.addObject("resolvingUrl", "/admin/usedkeys");
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/admin/unusedkeys", method = RequestMethod.GET)
+    public ModelAndView unusedKeys(@PageableDefault(size = 6) Pageable pageable) {
+        LOG.info("Request GET to '/admin/unusedkeys'");
+
+        ModelAndView mav = new ModelAndView("/admin/registrationkeys");
+
+        //Do we have a logged in User ?
+        boolean authenticated = userService.isAuthenticated();
+        mav.addObject("auth", authenticated);
+
+        if (authenticated) {
+            //Get the session user
+            User user = userService.getUser();
+            mav.addObject("user", user);
+            mav.addObject("key", new RegistrationKey());
+
+            //Is the user in the role ADMIN ?
+            if (user.getUserRole() != UserRole.ADMIN) {
+                return indexController.index(new PageRequest(0, 5));
+            }
+        } else {
+            return indexController.index(new PageRequest(0, 5));
+        }
+
+        //The user is logged in and is in the admin role, setup content
+        Page<RegistrationKey> usedRegistrationKeys = registrationKeyService.getUnUsedRegistrationKeys(pageable);
+        mav.addObject("keys", usedRegistrationKeys);
+        mav.addObject("page", usedRegistrationKeys);
+        mav.addObject("totalKeySize", usedRegistrationKeys.getTotalElements());
+        mav.addObject("resolvingUrl", "/admin/unusedkeys");
 
         return mav;
     }

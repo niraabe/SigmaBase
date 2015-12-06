@@ -205,6 +205,11 @@ public class UserService {
             return false;
         }
 
+        if(user.getUserRole() == null) {
+            LOG.info("Couldnt login user - userRole is null! user: {}", user);
+            return false;
+        }
+
         org.springframework.security.core.userdetails.User authUser = new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),

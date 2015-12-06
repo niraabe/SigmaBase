@@ -5,8 +5,13 @@ import de.sigma.sigmabase.repository.RegistrationKeyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.Validate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by:  nilsraabe
@@ -52,6 +57,20 @@ public class RegistrationKeyService {
         RegistrationKey key = registrationKeyRepository.save(registrationKey);
         LOG.debug("Stored the following registration Key in DB: {}", key);
         return key;
+    }
+
+    /**
+     * Get all registration keys which have a relation to a user == used RegistrationKey
+     *
+     * @param pageable
+     * @return
+     */
+    public Page<RegistrationKey> getUsedRegistrationKeys(Pageable pageable) {
+        return registrationKeyRepository.findUsedRegistrationKeys(pageable);
+    }
+
+    public Page<RegistrationKey> getUnUsedRegistrationKeys(Pageable pageable) {
+        return registrationKeyRepository.findUnUsedRegistrationKeys(pageable);
     }
 
 }

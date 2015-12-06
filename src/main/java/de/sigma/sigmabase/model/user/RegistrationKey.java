@@ -1,5 +1,9 @@
 package de.sigma.sigmabase.model.user;
 
+import org.joda.time.DateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -17,6 +21,14 @@ public class RegistrationKey {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
+    @LastModifiedDate
+    @Column(nullable = false, unique = false)
+    private DateTime lastmodified;
+
+    @CreatedDate
+    @Column(nullable = false, unique = false)
+    private DateTime creationdate;
+
     @Column(nullable = false, length = 1024)
     private String key;
 
@@ -24,15 +36,17 @@ public class RegistrationKey {
     @Column(nullable = false)
     private UserRole userRole;
 
-    @OneToOne(mappedBy = "registrationKey", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, optional = true)
     private User user;
 
     @Override
     public String toString() {
         return "RegistrationKey{" +
-                "id=" + id +
+                "userRole=" + userRole +
                 ", key='" + key + '\'' +
-                ", userRole=" + userRole +
+                ", creationdate=" + creationdate +
+                ", lastmodified=" + lastmodified +
+                ", id=" + id +
                 '}';
     }
 
@@ -42,16 +56,29 @@ public class RegistrationKey {
         if (!(o instanceof RegistrationKey)) return false;
         RegistrationKey that = (RegistrationKey) o;
         return Objects.equals(id, that.id) &&
+                Objects.equals(lastmodified, that.lastmodified) &&
+                Objects.equals(creationdate, that.creationdate) &&
                 Objects.equals(key, that.key) &&
                 Objects.equals(userRole, that.userRole);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, key, userRole);
+        return Objects.hash(id, lastmodified, creationdate, key, userRole);
     }
 
-/*
+    @PrePersist
+    void onCreate() {
+        setCreationdate(new DateTime());
+        setLastmodified(new DateTime());
+    }
+
+    @PreUpdate
+    void onPersist() {
+        setLastmodified(new DateTime());
+    }
+
+    /*
     ############# Getter & Setter #############
      */
 
@@ -85,5 +112,21 @@ public class RegistrationKey {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public DateTime getLastmodified() {
+        return lastmodified;
+    }
+
+    public void setLastmodified(DateTime lastmodified) {
+        this.lastmodified = lastmodified;
+    }
+
+    public DateTime getCreationdate() {
+        return creationdate;
+    }
+
+    public void setCreationdate(DateTime creationdate) {
+        this.creationdate = creationdate;
     }
 }

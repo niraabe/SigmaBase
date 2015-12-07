@@ -69,47 +69,8 @@ public class AdminController {
         return mav;
     }
 
-    @RequestMapping(value = "/admin/addregistrationkey", method = RequestMethod.POST)
-    public ModelAndView addRegistrationKey(@ModelAttribute("key") RegistrationKey key) {
-        LOG.info("Request POST to '/admin/addregistrationkey'");
-
-        ModelAndView mav = new ModelAndView("admin/admin");
-
-        //Do we have a logged in User ?
-        boolean authenticated = userService.isAuthenticated();
-        mav.addObject("auth", authenticated);
-
-        if (authenticated) {
-            //Get the session user
-            User user = userService.getUser();
-            mav.addObject("user", user);
-            LOG.info("Following user wants to generate registration key: {}", user);
-
-            //Is the user in the role ADMIN ?
-            if (user.getUserRole() != UserRole.ADMIN) {
-                LOG.warn("User wasn't i9n the ADMIN role !");
-                return indexController.index(new PageRequest(0, 5));
-            }
-        } else {
-            LOG.warn("No logged in user wanted to generate registration key !");
-            return indexController.index(new PageRequest(0, 5));
-        }
-
-        //user has the permission, go ahead
-        String keyAsString = registrationKeyGenerator.generatePassword();
-        key.setKey(keyAsString);
-
-        //Set the new key in the model to show it to the admin
-        mav.addObject("generatedKey", key);
-
-        registrationKeyService.saveRegistrationKey(key);
-        LOG.info("Generated and stored the following key: {}", key);
-
-        return mav;
-    }
-
     @RequestMapping(value = "/admin/usedkeys", method = RequestMethod.GET)
-    public ModelAndView usedKeys(@PageableDefault(size = 6) Pageable pageable) {
+    public ModelAndView usedKeys(@PageableDefault(size = 16) Pageable pageable) {
         LOG.info("Request GET to '/admin/usedkeys'");
 
         ModelAndView mav = new ModelAndView("/admin/registrationkeys");
@@ -144,7 +105,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/unusedkeys", method = RequestMethod.GET)
-    public ModelAndView unusedKeys(@PageableDefault(size = 6) Pageable pageable) {
+    public ModelAndView unusedKeys(@PageableDefault(size = 16) Pageable pageable) {
         LOG.info("Request GET to '/admin/unusedkeys'");
 
         ModelAndView mav = new ModelAndView("/admin/registrationkeys");

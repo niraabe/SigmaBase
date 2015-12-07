@@ -210,6 +210,11 @@ public class UserService {
             return false;
         }
 
+        if(user.getRegistrationKey() == null) {
+            LOG.info("Couldnt login user - registration key is null! user: {}", user);
+            return false;
+        }
+
         org.springframework.security.core.userdetails.User authUser = new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),

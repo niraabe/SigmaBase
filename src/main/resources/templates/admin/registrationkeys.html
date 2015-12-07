@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
 
 <header data-th-replace="replacements/header :: head(#{index.tabtitle})"/>
 
@@ -37,16 +37,24 @@
                         <th>Benutzername</th>
                         <th>Name</th>
                         <th>Nachname</th>
-                        <th>Aktivierungscode</th>
+                        <th data-th-text="#{admin.table.acivationkey}"></th>
                         <th data-th-if="${deleteGranted}">Löschen</th>
                     </tr>
                     </thead>
                     <tbody data-th-each="key : ${page.content}">
                     <tr>
                         <td data-th-text="${key.id}"></td>
-                        <td data-th-text="${key.creationdate}"></td>
-                        <td data-th-text="${key.lastmodified}"></td>
-                        <td data-th-text="${key.userRole}"></td>
+                        <td data-th-text="${key.getFormattedCreationdate()}"></td>
+                        <td data-th-text="${key.getFormattedLastmodified()}"></td>
+
+                        <td data-th-if="${key.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).PUBLIC}"
+                            data-th-text="#{admin.role.public}"></td>
+                        <td data-th-if="${key.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).READ}"
+                            data-th-text="#{admin.role.read}"></td>
+                        <td data-th-if="${key.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).EDIT}"
+                            data-th-text="#{admin.role.edit}"></td>
+                        <td data-th-if="${key.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).ADMIN}"
+                            data-th-text="#{admin.role.admin}"></td>
 
                         <td data-th-if="${key.user} != null" data-th-text="${key.user.username}"></td>
                         <td data-th-if="${key.user} == null">-</td>
@@ -57,10 +65,32 @@
                         <td data-th-if="${key.user} != null" data-th-text="${key.user.surname}"></td>
                         <td data-th-if="${key.user} == null">-</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-xs">Aktivierungscode</button>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-xs" data-th-text="#{admin.button.regcode}" data-toggle="modal" data-target="#myModal"></button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel" data-th-text="#{admin.popup.acivationkey}"></h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4>
+                                                <pre data-th-text="${key.getKey()}"></pre>
+                                            </h4>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                         <td data-th-if="${deleteGranted}">
-                            <form data-th-action="@{/admin/deletekey/} + ${key.id}" method="post">
+                            <form data-th-action="@{/admin/deletekey/} + ${key.id} + @{/(page=${page.number})}" method="post">
                                 <button class="btn btn-danger btn-xs" type="submit" data-th-text="#{admin.button.delete}"></button>
                             </form>
                         </td>

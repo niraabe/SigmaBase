@@ -1,5 +1,6 @@
 package de.sigma.sigmabase.controller;
 
+import de.sigma.sigmabase.controller.util.RegistrationKeyGenerator;
 import de.sigma.sigmabase.model.user.RegistrationKey;
 import de.sigma.sigmabase.model.user.User;
 import de.sigma.sigmabase.model.user.UserRole;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,6 +44,66 @@ public class RegistrationKeyController {
     @Autowired
     private RegistrationKeyService registrationKeyService;
 
+    @Autowired
+    private RegistrationKeyGenerator registrationKeyGenerator;
+
+    /**
+     * Adds a unique registration key to the database
+     *
+     * @param key
+     * @return
+     */
+    @Transactional
+    @RequestMapping(value = "/admin/addregistrationkey", method = RequestMethod.POST)
+    public ModelAndView addRegistrationKey(@ModelAttribute("key") RegistrationKey key) {
+        LOG.info("Request POST to '/admin/addregistrationkey'");
+
+        ModelAndView mav = new ModelAndView("admin/admin");
+
+        //Do we have a logged in User ?
+        boolean authenticated = userService.isAuthenticated();
+        mav.addObject("auth", authenticated);
+
+        if (authenticated) {
+            //Get the session user
+            User user = userService.getUser();
+            mav.addObject("user", user);
+            LOG.info("Following user wants to generate registration key: {}", user);
+
+            //Is the user in the role ADMIN ?
+            if (user.getUserRole() != UserRole.ADMIN) {
+                LOG.warn("User wasn't in the ADMIN role !");
+                return indexController.index(new PageRequest(0, 5));
+            }
+        } else {
+            LOG.warn("No logged in user wanted to generate registration key !");
+            return indexController.index(new PageRequest(0, 5));
+        }
+
+        //No user role option set by user
+        if (key.getUserRole() == null) {
+            mav.addObject("error_role", true);
+            return mav;
+        }
+
+        //user has the permission, go ahead
+
+        //Generate a unique registration key which is not a duplicate
+        String keyAsString;
+        do {
+            keyAsString = registrationKeyGenerator.generatePassword();
+        } while (registrationKeyService.getRegistrationKeyByKey(keyAsString) != null);
+        key.setKey(keyAsString);
+
+        //Set the new key in the model to show it to the admin
+        mav.addObject("generatedKey", key);
+
+        registrationKeyService.saveRegistrationKey(key);
+        LOG.info("Generated and stored the following key: {}", key);
+
+        return mav;
+    }
+
     /**
      * Deletes a specific registration key
      *
@@ -51,7 +113,7 @@ public class RegistrationKeyController {
      */
     @Transactional
     @RequestMapping(value = "/admin/deletekey/{keyid}", method = RequestMethod.POST)
-    public ModelAndView deleteKey(@PathVariable("keyid") long keyid, @PageableDefault(size = 6) Pageable pageable) {
+    public ModelAndView deleteRegistrationKey(@PathVariable("keyid") long keyid, @PageableDefault(size = 16) Pageable pageable) {
         LOG.info("Request POST to '/admin/deleteKey/{}'", keyid);
 
         ModelAndView mav = new ModelAndView("/admin/registrationkeys");
@@ -68,10 +130,10 @@ public class RegistrationKeyController {
 
             //Is the user in the role ADMIN ?
             if (user.getUserRole() != UserRole.ADMIN) {
-                return indexController.index(new PageRequest(0, 5));
+                return indexController.index(new PageRequest(0, 16));
             }
         } else {
-            return indexController.index(new PageRequest(0, 5));
+            return indexController.index(new PageRequest(0, 16));
         }
 
         //The user is logged in and is in the admin role, delete the key !
@@ -79,7 +141,10 @@ public class RegistrationKeyController {
         Validate.isTrue(deleteAction, String.format("Error while deleting registration key with id: %s", keyid));
         LOG.info("Deleted registration key, id: {}", keyid);
 
-        return adminController.unusedKeys(pageable);
+        int pageNumber = pageable.getPageNumber();
+        PageRequest pageRequest = new PageRequest(pageNumber, 16);
+
+        return adminController.unusedKeys(pageRequest);
     }
 
 }

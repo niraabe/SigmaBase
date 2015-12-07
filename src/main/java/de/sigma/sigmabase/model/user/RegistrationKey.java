@@ -1,6 +1,7 @@
 package de.sigma.sigmabase.model.user;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -118,12 +119,22 @@ public class RegistrationKey {
         return lastmodified;
     }
 
+    public String getFormattedLastmodified() {
+        DateTimeFormatter dtf = org.joda.time.format.DateTimeFormat.forPattern("dd.MM.yyyy HH:mm:ss");
+        return lastmodified.toString(dtf);
+    }
+
     public void setLastmodified(DateTime lastmodified) {
         this.lastmodified = lastmodified;
     }
 
     public DateTime getCreationdate() {
         return creationdate;
+    }
+
+    public String getFormattedCreationdate() {
+        DateTimeFormatter dtf = org.joda.time.format.DateTimeFormat.forPattern("dd.MM.yyyy HH:mm:ss");
+        return creationdate.toString(dtf);
     }
 
     public void setCreationdate(DateTime creationdate) {

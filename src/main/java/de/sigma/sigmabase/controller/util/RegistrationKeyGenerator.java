@@ -28,15 +28,6 @@ public class RegistrationKeyGenerator {
     private static final char[] SPECIAL_CHARACTERS = {'~', '`', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+',
             '[', '{', ']', '}', '\\', '|', ';', ':', '\'', '"', ',', '<', '.', '>', '/', '?'};
 
-
-    public static void main(String[] args) {
-        RegistrationKeyGenerator pwGenerator = new RegistrationKeyGenerator();
-        for (int i = 0; i < 10; ++i) {
-            System.out.println(pwGenerator.generatePassword());
-        }
-    }
-
-
     /**
      * Default Constructor
      */

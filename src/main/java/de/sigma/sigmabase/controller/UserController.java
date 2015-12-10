@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -86,6 +87,8 @@ public class UserController {
             return indexController.index(new PageRequest(0, 5));
         }
 
+        mav.addObject("edituser", true);
+
         return mav;
     }
 
@@ -128,11 +131,66 @@ public class UserController {
         //If the validation succeeds, update the user in the db
         if (validation.validateEditUser(mav, authUser, editUser) == false) {
             User user = userService.updateUser(editUser, authUser);
-            userService.login(user);
+            //If the user changed any information, the user object returned from the userService is != null
+            if(user != null) {
+                userService.login(user);
+            }
 
             return this.userPage(pageable);
+        } else {
+            //User input validation crashed, editation round 2
+            mav.addObject("edituser", true);
         }
 
         return mav;
     }
+
+    /**
+     * Request mapping to a specific user page
+     *
+     * @param username
+     * @return
+     */
+    @RequestMapping("/user/{username}")
+    public ModelAndView userPage(@PathVariable("username") String username) {
+        LOG.info("Request GET to '/user/{}'", username);
+
+        ModelAndView mav = new ModelAndView("user");
+
+        //Do we have a login user
+        boolean authenticated = userService.isAuthenticated();
+        mav.addObject("auth", authenticated);
+
+        //Get the user we are searching for
+        User user = userService.getUserByName(username);
+
+        if (authenticated) {
+            //get the login user
+            User authUser = userService.getUser();
+
+            if (authUser == null) {
+                LOG.info("Couldnt locate session user while adding follower relation.");
+                return indexController.index(new PageRequest(0, 5));
+            }
+            if (user == null) {
+                LOG.info("Couldnt locate user with name: '{}'", username);
+                return indexController.index(new PageRequest(0, 5));
+            }
+
+            //Check if it is myUserpage or a foreign user
+            // Although check if we are already following this user
+            if (authUser.equals(user)) {
+                mav.addObject("myUserpage", true);
+            } else {
+                mav.addObject("foreignUserpageFollow", true);
+            }
+
+            mav.addObject("user", user);
+        } else {
+            LOG.info("Unauthorized user detected at userPage looking for user with name: '{}'", username);
+            return indexController.index(new PageRequest(0, 5));
+        }
+        return mav;
+    }
+
 }

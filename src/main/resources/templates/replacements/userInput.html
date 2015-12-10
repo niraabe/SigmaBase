@@ -14,10 +14,15 @@
 
             <!-- ############################# USERNAME #######################################-->
             <div class="col-md-4 col-md-offset-4">
-                <div class="form-group">
+                <!-- ######### REGISTRATION PAGE ######### -->
+                <div class="form-group" data-th-if="${edituser} == false">
                     <label for="username" data-th-text="#{register.username}">Username</label>
-                    <input type="text" class="form-control" id="username" data-th-placeholder="#{register.username}" th:field="*{username}"
-                           autofocus="autofocus"/>
+                    <input type="text" class="form-control" id="username" data-th-placeholder="#{register.username}" th:field="*{username}" autofocus="autofocus"/>
+                </div>
+                <!-- ######## USER EDIT PAGE ############## -->
+                <div class="form-group" data-th-if="${edituser} == true">
+                    <label for="username" data-th-text="#{register.username}">Username</label>
+                    <input type="text" class="form-control" id="username" data-th-placeholder="#{register.username}" th:field="*{username}" readonly="readonly"/>
                 </div>
             </div>
             <div class="col-md-3" data-th-if="${usernameLength}" style="padding-top: 18px">

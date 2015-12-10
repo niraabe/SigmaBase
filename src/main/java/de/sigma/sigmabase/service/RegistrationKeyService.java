@@ -94,6 +94,12 @@ public class RegistrationKeyService {
         return registrationKeyRepository.findUsedRegistrationKeys(pageable);
     }
 
+    /**
+     * Get all registration keys which have NOT a relation to a user == UNused RegistrationKey
+     *
+     * @param pageable
+     * @return
+     */
     public Page<RegistrationKey> getUnUsedRegistrationKeys(Pageable pageable) {
         LOG.debug("Returned pageable of UNused registration keys.");
         return registrationKeyRepository.findUnUsedRegistrationKeys(pageable);

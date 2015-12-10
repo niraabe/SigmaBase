@@ -55,6 +55,8 @@ public class RegisterController {
         ModelMap map = new ModelMap();
         map.put("user", new User());
         map.put("key", "");
+        map.put("edituser", false);
+
         return new ModelAndView("register", map);
     }
 
@@ -70,6 +72,7 @@ public class RegisterController {
         LOG.info("Request POST to '/register'");
 
         ModelAndView mav = new ModelAndView("register");
+        mav.addObject("edituser", false);
 
         //Validating the user input
         if (validation.validateUser(mav, user) == false) {

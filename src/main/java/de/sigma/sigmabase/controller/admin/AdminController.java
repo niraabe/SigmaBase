@@ -1,5 +1,6 @@
-package de.sigma.sigmabase.controller;
+package de.sigma.sigmabase.controller.admin;
 
+import de.sigma.sigmabase.controller.IndexController;
 import de.sigma.sigmabase.controller.util.RegistrationKeyGenerator;
 import de.sigma.sigmabase.model.user.RegistrationKey;
 import de.sigma.sigmabase.model.user.User;
@@ -14,7 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,9 +37,6 @@ public class AdminController {
     private IndexController indexController;
 
     @Autowired
-    private RegistrationKeyGenerator registrationKeyGenerator;
-
-    @Autowired
     private RegistrationKeyService registrationKeyService;
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -60,9 +57,11 @@ public class AdminController {
 
             //Is the user in the role ADMIN ?
             if (user.getUserRole() != UserRole.ADMIN) {
+                LOG.warn("Unauthorized Request GET to '/admin' by user: {}", user);
                 return indexController.index(new PageRequest(0, 5));
             }
         } else {
+            LOG.warn("Unauthorized Request GET to '/admin' by not logged in user");
             return indexController.index(new PageRequest(0, 5));
         }
 
@@ -70,7 +69,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/usedkeys", method = RequestMethod.GET)
-    public ModelAndView usedKeys(@PageableDefault(size = 16) Pageable pageable) {
+    public ModelAndView usedKeysPage(@PageableDefault(size = 16) Pageable pageable) {
         LOG.info("Request GET to '/admin/usedkeys'");
 
         ModelAndView mav = new ModelAndView("/admin/registrationkeys");
@@ -87,6 +86,7 @@ public class AdminController {
 
             //Is the user in the role ADMIN ?
             if (user.getUserRole() != UserRole.ADMIN) {
+                LOG.warn("Unauthorized Request GET to '/admin/usedkeys' by user: {}", user);
                 return indexController.index(new PageRequest(0, 5));
             }
         } else {
@@ -105,7 +105,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/unusedkeys", method = RequestMethod.GET)
-    public ModelAndView unusedKeys(@PageableDefault(size = 16) Pageable pageable) {
+    public ModelAndView unusedKeysPage(@PageableDefault(size = 16) Pageable pageable) {
         LOG.info("Request GET to '/admin/unusedkeys'");
 
         ModelAndView mav = new ModelAndView("/admin/registrationkeys");
@@ -122,6 +122,7 @@ public class AdminController {
 
             //Is the user in the role ADMIN ?
             if (user.getUserRole() != UserRole.ADMIN) {
+                LOG.warn("Unauthorized Request GET to '/admin/unusedkeys' by user: {}", user);
                 return indexController.index(new PageRequest(0, 5));
             }
         } else {

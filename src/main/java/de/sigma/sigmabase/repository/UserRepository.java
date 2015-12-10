@@ -1,6 +1,9 @@
 package de.sigma.sigmabase.repository;
 
+import de.sigma.sigmabase.model.Facility;
 import de.sigma.sigmabase.model.user.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -14,5 +17,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserRepository extends CrudRepository<User, Long> {
 
     User findByUsername(String username);
+
+    Page<User> findAll(Pageable pageable);
 
 }

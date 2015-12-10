@@ -38,16 +38,18 @@
                         <li class="list-group-item">
 
                             <div class="panel-body">
-                                <h4>
+                                <h3>
                                     <span data-th-text="#{admin.title.generateregistrationkey}"></span>
-                                </h4>
+                                </h3>
 
                                 <!-- ################## Submit  new Registration Key ########################-->
                                 <form data-th-action="@{/admin/addregistrationkey}" th:object="${key}" method="post"
                                       accept-charset="utf-9">
-                                    <label for="roleOption" data-th-text="#{admin.title.role}">Gender</label>
+                                    <h5>
+                                        <label data-th-text="#{admin.title.role}"></label>
+                                    </h5>
 
-                                    <div class="form-group" id="roleOption">
+                                    <div class="form-group" >
                                         <div class="radio-inline">
                                             <label>
                                                 <input type="radio" id="roleOption4" value="PUBLIC" th:field="${key.userRole}"
@@ -79,10 +81,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12" data-th-if="${error_role}" >
-                                        <div class="alert alert-danger" role="alert" style="margin-bottom: 10px; text-align: center">
+                                    <div class="col-md-12" data-th-if="${error_role}">
+                                        <div class="alert alert-danger" role="alert" style="margin-bottom: 22px; text-align: center">
                                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                            <span data-th-text="#{admin.error.roleoption}" ></span>
+                                            <span data-th-text="#{admin.error.roleoption}"></span>
                                         </div>
                                     </div>
 
@@ -101,46 +103,50 @@
 
 
                                 </form>
-
-                                <!-- ################################## SHOW GENERATED REGISTRATION KEY #################################### -->
-
-                                <div data-th-if="${generatedKey} != null">
-                                    <h4>
-                                        <span data-th-text="#{admin.title.newregistrationkey}"></span>
-                                    </h4>
-
-                                    <ul class="list-group">
-                                        <li class="list-group-item">
-                                            <h4>
-                                                <span data-th-text="#{admin.role}"></span>
-                                                <small
-                                                        data-th-if="${generatedKey.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).PUBLIC}"
-                                                        data-th-text="#{admin.role.public}"></small>
-                                                <small data-th-if="${generatedKey.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).READ}"
-                                                       data-th-text="#{admin.role.read}"></small>
-                                                <small data-th-if="${generatedKey.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).EDIT}"
-                                                       data-th-text="#{admin.role.edit}"></small>
-                                                <small data-th-if="${generatedKey.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).ADMIN}"
-                                                       data-th-text="#{admin.role.admin}"></small>
-                                            </h4>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <h4>
-                                                <span data-th-text="#{admin.title.key}"></span>
-                                                <pre data-th-text="${generatedKey.getKey()}"></pre>
-                                            </h4>
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
 
+                        </li>
+                        <!-- ################################## SHOW GENERATED REGISTRATION KEY #################################### -->
+                        <li class="list-group-item" data-th-if="${generatedKey} != null">
+                            <div class="panel-body">
+
+                                <ul class="list-group">
+                                    <h3>
+                                        <span data-th-text="#{admin.title.newregistrationkey}"></span>
+                                    </h3>
+                                    <li class="list-group-item">
+                                        <h4>
+                                            <span data-th-text="#{admin.role}"></span>
+                                            <small
+                                                    data-th-if="${generatedKey.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).PUBLIC}"
+                                                    data-th-text="#{admin.role.public}"></small>
+                                            <small data-th-if="${generatedKey.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).READ}"
+                                                   data-th-text="#{admin.role.read}"></small>
+                                            <small data-th-if="${generatedKey.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).EDIT}"
+                                                   data-th-text="#{admin.role.edit}"></small>
+                                            <small data-th-if="${generatedKey.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).ADMIN}"
+                                                   data-th-text="#{admin.role.admin}"></small>
+                                        </h4>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h4>
+                                            <span data-th-text="#{admin.title.key}"></span>
+                                            <pre data-th-text="${generatedKey.getKey()}"></pre>
+                                        </h4>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                         <!-- ################################## ACTIVE USERS #################################### -->
                         <li class="list-group-item">
                             <div class="panel-body">
-                                <h4>
+                                <h3>
                                     <span data-th-text="#{admin.title.activeusers}"></span>
-                                </h4>
+                                </h3>
+
+                                <h5>
+                                    <label data-th-text="#{admin.title.allusers}"></label>
+                                </h5>
 
                                 <a href="#" role="button" class="btn btn-primary" data-th-href="@{/admin/users}"
                                    data-th-text="#{admin.button.activeusers}"></a>

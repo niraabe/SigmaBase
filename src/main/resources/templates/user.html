@@ -3,6 +3,9 @@
 
 <header data-th-replace="replacements/header :: head(#{user.title(${user.username})})"/>
 
+<!-- ##################### Script for Tag/Link replacement ########################### -->
+<script type="text/javascript" src="/js/replaceTags.js"></script>
+
 <body>
 
 <nav data-th-replace="replacements/header :: navigation"/>
@@ -27,7 +30,7 @@
                             <h3 class="text-center" data-th-text="#{user.title(${user.username})}"/>
                         </div>
 
-                        <!-- ################## Edit button ########################-->
+                        <!-- #############################  Edit button ##################################-->
                         <div class="col-md-3">
                             <form class="text-right" data-th-if="${myUserpage}" data-th-action="@{/edit}" method="get"
                                   style="padding-top: 7%; padding-right: 3%;">
@@ -37,7 +40,6 @@
                                 </button>
                             </form>
                         </div>
-
                     </div>
                 </div>
 
@@ -89,6 +91,7 @@
 
         </div>
     </div>
+
 </div>
 
 </body>

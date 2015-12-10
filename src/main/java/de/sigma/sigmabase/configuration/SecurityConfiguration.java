@@ -66,6 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .withUser("user")
                 .password("foo")
                     .roles("USER");
+            //TODO defaulöt user in DB
         }
 
         auth

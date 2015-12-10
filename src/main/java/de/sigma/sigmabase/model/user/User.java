@@ -151,12 +151,22 @@ public class User {
         return lastmodified;
     }
 
+    public String getFormattedLastmodified() {
+        DateTimeFormatter dtf = org.joda.time.format.DateTimeFormat.forPattern("dd.MM.yyyy HH:mm:ss");
+        return lastmodified.toString(dtf);
+    }
+
     public void setLastmodified(DateTime lastmodified) {
         this.lastmodified = lastmodified;
     }
 
     public DateTime getCreationdate() {
         return creationdate;
+    }
+
+    public String getFormattedCreationdate() {
+        DateTimeFormatter dtf = org.joda.time.format.DateTimeFormat.forPattern("dd.MM.yyyy HH:mm:ss");
+        return creationdate.toString(dtf);
     }
 
     public void setCreationdate(DateTime creationdate) {

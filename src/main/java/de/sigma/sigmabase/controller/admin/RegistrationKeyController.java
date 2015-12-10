@@ -1,5 +1,6 @@
-package de.sigma.sigmabase.controller;
+package de.sigma.sigmabase.controller.admin;
 
+import de.sigma.sigmabase.controller.IndexController;
 import de.sigma.sigmabase.controller.util.RegistrationKeyGenerator;
 import de.sigma.sigmabase.model.user.RegistrationKey;
 import de.sigma.sigmabase.model.user.User;
@@ -22,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.Validate;
 
 /**
+ * Controller top handle requests by registration keys from the admin area
+ *
  * Created by:  nilsraabe
  * Date:        06.12.15
  * Time:        21:44
@@ -72,7 +75,7 @@ public class RegistrationKeyController {
 
             //Is the user in the role ADMIN ?
             if (user.getUserRole() != UserRole.ADMIN) {
-                LOG.warn("User wasn't in the ADMIN role !");
+                LOG.warn("Unauthorized Request GET to '/admin/addregistrationkey' by user: {}", user);
                 return indexController.index(new PageRequest(0, 5));
             }
         } else {
@@ -130,9 +133,11 @@ public class RegistrationKeyController {
 
             //Is the user in the role ADMIN ?
             if (user.getUserRole() != UserRole.ADMIN) {
+                LOG.warn("Unauthorized Request POST to '/admin/deleteKey/{}' by user: {}", keyid, user);
                 return indexController.index(new PageRequest(0, 16));
             }
         } else {
+            LOG.warn("No logged in user wanted to deleteregistration key by id: {}!", keyid);
             return indexController.index(new PageRequest(0, 16));
         }
 
@@ -144,7 +149,7 @@ public class RegistrationKeyController {
         int pageNumber = pageable.getPageNumber();
         PageRequest pageRequest = new PageRequest(pageNumber, 16);
 
-        return adminController.unusedKeys(pageRequest);
+        return adminController.unusedKeysPage(pageRequest);
     }
 
 }

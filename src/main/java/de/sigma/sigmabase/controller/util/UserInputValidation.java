@@ -64,23 +64,9 @@ public class UserInputValidation {
      * @param username
      */
     public boolean validateEditedUsername(ModelAndView mav, String username, String usernameEdited) {
-        if (usernameEdited == null || usernameEdited.length() == 0) {
-            LOG.info("User input for username is null or length == 0 !");
+        if (usernameEdited.equals(username) == false) {
+            LOG.info("User edited username ! username: {}, username edited: {}", username, usernameEdited);
             mav.addObject("usernameLength", true);
-            return true;
-        } else if (usernameEdited.matches("[a-zA-Z0-9/-/_öäü]+") == false) {
-            LOG.info("User input for username contains none valid characters! value: '{}'", usernameEdited);
-            mav.addObject("usernameInvalid", true);
-            return true;
-        } else if (userService.getUserByName(usernameEdited) != null) {
-            if (StringUtils.equals(username, usernameEdited) == false) {
-                LOG.info("User input for username is already taken! value: '{}'", usernameEdited);
-                mav.addObject("usernameDuplicate", true);
-                return true;
-            }
-        } else if (usernameEdited.length() > 50) {
-            LOG.info("User input for username is to long! value: '{}'", usernameEdited);
-            mav.addObject("usernameToLong", true);
             return true;
         }
         return false;

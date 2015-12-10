@@ -8,6 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.Authentication;
@@ -144,7 +146,7 @@ public class UserService {
 
         //Check if we have to setup a new username
         if (StringUtils.equals(editedUser.getUsername(), oldUser.getUsername()) == false) {
-            oldUser.setUsername(editedUser.getUsername());
+            throw new IllegalStateException("Username shouldn't be edited !");
         }
 
         //Check if we have to setup a new password
@@ -187,9 +189,9 @@ public class UserService {
         //Update the user in the db
         userRepository.save(oldUser);
 
-        LOG.info("Updated the following user information to: {}", oldUser);
+        LOG.info("Updated the user information to : {}", oldUser);
 
-        return editedUser;
+        return oldUser;
     }
 
     /**
@@ -226,4 +228,41 @@ public class UserService {
 
         return true;
     }
+
+    /**
+     * Get all registration keys which have NOT a relation to a user == UNused RegistrationKey
+     *
+     * @param pageable
+     * @return
+     */
+    public Page<User> getAllUsers(Pageable pageable) {
+        LOG.debug("Returned pageable of all users.");
+        return userRepository.findAll(pageable);
+    }
+
+    /**
+     * Get a specific user by id
+     *
+     * @param id user id
+     * @return
+     */
+    public User getUserByID(long id) {
+        User user = userRepository.findOne(id);
+        LOG.debug("Get user by id. user: {}", user);
+        return user;
+    }
+
+    /**
+     * Delete a specific user by id
+     *
+     * @param id user id
+     * @return
+     */
+    public boolean deleteUserById(final long id) {
+        userRepository.delete(id);
+        LOG.debug("Deleted user with id: {}", id);
+        return true;
+    }
+
+
 }

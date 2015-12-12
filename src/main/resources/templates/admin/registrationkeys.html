@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <header data-th-replace="replacements/header :: head(#{index.tabtitle})"/>
 
@@ -66,25 +66,29 @@
                         <td data-th-if="${key.user} == null">-</td>
                         <td>
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary btn-xs" data-th-text="#{admin.button.regcode}" data-toggle="modal" data-target="#myModal"></button>
+                            <a type="button" class="btn btn-primary btn-xs" th:href="'#'+${key.id}" data-toggle="modal" th:text="#{admin.button.regcode}"></a>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal fade" th:id="${key.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
+
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             <h4 class="modal-title" id="myModalLabel" data-th-text="#{admin.popup.acivationkey}"></h4>
                                         </div>
+
                                         <div class="modal-body">
                                             <h4>
-                                                <pre data-th-text="${key.getKey()}"></pre>
+                                                <pre data-th-text="${key.key}"></pre>
                                             </h4>
 
                                         </div>
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

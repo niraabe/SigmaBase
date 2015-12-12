@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <header data-th-replace="replacements/header :: head(#{index.tabtitle})"/>
 
@@ -66,24 +66,29 @@
 
                         <td data-th-if="${users.registrationKey} != null">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary btn-xs" data-th-text="#{admin.button.regcode}" data-toggle="modal" data-th-target="${users.id}"></button>
+                            <a type="button" class="btn btn-primary btn-xs" th:href="'#'+${users.id}" data-toggle="modal" th:text="#{admin.button.regcode}"></a>
 
                             <!-- Modal -->
-                            <div class="modal fade" data-th-id="${users.id}" tabindex="-1" role="dialog" data-th-attr=" aria-labelledby='modalLabel'+${users.id}">
+                            <div class="modal fade" th:id="${users.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
+
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" data-th-id="modalLabel+${users.id}" data-th-text="#{admin.popup.acivationkey}"></h4>
+                                            <h4 class="modal-title" id="myModalLabel" data-th-text="#{admin.popup.acivationkey}"></h4>
                                         </div>
+
                                         <div class="modal-body">
                                             <h4>
                                                 <pre data-th-text="${users.registrationKey.key}"></pre>
                                             </h4>
+
                                         </div>
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

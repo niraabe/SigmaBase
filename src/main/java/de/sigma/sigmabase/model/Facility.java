@@ -41,6 +41,10 @@ public class Facility {
     @Column(nullable = false)
     private Double longitude;
 
+    @Column(nullable = true)
+    private Integer forumThreadId;
+
+
     @PrePersist
     void onCreate() {
         setCreationdate(new DateTime());
@@ -58,6 +62,7 @@ public class Facility {
         if (!(o instanceof Facility)) return false;
         Facility facility = (Facility) o;
         return Objects.equals(id, facility.id) &&
+                Objects.equals(forumThreadId, facility.forumThreadId) &&
                 Objects.equals(version, facility.version) &&
                 Objects.equals(lastmodified, facility.lastmodified) &&
                 Objects.equals(creationdate, facility.creationdate) &&
@@ -68,7 +73,7 @@ public class Facility {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, version, lastmodified, creationdate, name, latitude, longitude);
+        return Objects.hash(id, version, lastmodified, creationdate, name, latitude, longitude, forumThreadId);
     }
 
     @Override
@@ -81,10 +86,11 @@ public class Facility {
                 ", name='" + name + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
+                ", forumThreadId=" + forumThreadId +
                 '}';
     }
 
-        /*
+/*
     ############# Getter & Setter #############
      */
 
@@ -142,5 +148,13 @@ public class Facility {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public Integer getForumThreadId() {
+        return forumThreadId;
+    }
+
+    public void setForumThreadId(Integer forumThreadId) {
+        this.forumThreadId = forumThreadId;
     }
 }

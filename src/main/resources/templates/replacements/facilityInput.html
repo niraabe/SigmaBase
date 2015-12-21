@@ -1,0 +1,187 @@
+<!-- ###################################################################################### -->
+<!-- Parameters of this replacement are the submit button name as string and the action url -->
+<!-- ###################################################################################### -->
+<div data-th-fragment="editFacility" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <!-- ################### START THE DATEPICKER ###########################-->
+    <link rel="stylesheet" data-th-href="@{/css/datepicker.css}"/>
+    <script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/js/startDatePicker.js"></script>
+
+    <div class="row">
+
+        <form th:action="@{${actionUrl}}" th:object="${facility}" method="post" accept-charset="utf-8">
+
+            <!-- ############################# NAME #######################################-->
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group" >
+                    <label for="name" data-th-text="#{facility.name}"></label>
+                    <input type="text" class="form-control" id="name" data-th-placeholder="#{facility.name}" th:field="*{name}" autofocus="autofocus" maxlength="200"/>
+                </div>
+            </div>
+
+            <div class="col-md-3" data-th-if="${facilityNameLength}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{addFacility.error.facilityNameLength}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${facilityNameDuplicate}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{addFacility.error.facilityNameDuplicate}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${facilityNameInvalid}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{addFacility.error.facilityNameInvalid}">Placeholder</span>
+                </div>
+            </div>
+            <div class="col-md-3" data-th-if="${facilityNameToLong}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{addFacility.error.facilityNameToLong}">Placeholder</span>
+                </div>
+            </div>
+
+
+            <!-- ############################# LATITUDE #######################################-->
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group" >
+                    <label for="latitude" data-th-text="#{facility.latitude}"></label>
+                    <input type="text" class="form-control" id="latitude" data-th-placeholder="#{facility.latitude}" th:field="*{latitude}"/>
+                </div>
+            </div>
+
+            <div class="col-md-3" data-th-if="${#fields.hasErrors('latitude')}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{addFacility.facilityWrongCoordinate}">Placeholder</span>
+                    <span th:errors="*{latitude}">Placeholder</span>
+                </div>
+            </div>
+
+            <!-- ############################# LONGITUDE #######################################-->
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group" >
+                    <label for="longitude" data-th-text="#{facility.longitude}"></label>
+                    <input type="text" class="form-control" id="longitude" data-th-placeholder="#{facility.longitude}" th:field="*{longitude}"/>
+                </div>
+            </div>
+
+            <div class="col-md-3" data-th-if="${#fields.hasErrors('longitude')}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{addFacility.facilityWrongCoordinate}">Placeholder</span>
+                    <span th:errors="*{longitude}">Placeholder</span>
+                </div>
+            </div>
+
+            <!-- ############################# FORUM THREAD ID OR URL #######################################-->
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group">
+                    <label for="forumThreadId" data-th-text="#{facility.forumThreadId}">Description</label>
+                    <textarea type="text" class="form-control" id="forumThreadId" data-th-placeholder="#{facility.forumThreadId}"
+                              th:value="${forumThreadIdAsString}" name="forumThreadIdAsString" rows="5" style="resize: none;"/>
+                </div>
+            </div>
+
+            <div class="col-md-3" data-th-if="${forumThreadIdError}" style="padding-top: 18px">
+                <div class="alert alert-danger" role="alert" style="margin-bottom: 0">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span data-th-text="#{addFacility.error.forumThreadIdError}">Placeholder</span>
+                </div>
+            </div>
+
+
+
+            <!-- ############################# LATITUDE #######################################-->
+            <!--<div class="col-md-4 col-md-offset-4">-->
+                <!--<div class="form-group">-->
+                    <!--<label for="datepicker" data-th-text="#{register.birthday}">Birthday</label>-->
+
+                    <!--<div class="input-group date" id="datepicker" data-date="01.01.1980" data-date-format="dd.mm.yyyy"-->
+                         <!--data-date-viewmode="years"-->
+                         <!--data-date-autoclose="true">-->
+                        <!--<input class="form-control" type="date" readonly="" th:field="*{birthday}"/>-->
+
+                        <!--<span class="add-on input-group-addon">-->
+                            <!--<span class="glyphicon glyphicon-calendar"></span>-->
+                        <!--</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-3" data-th-if="${birthdayNull}" style="padding-top: 18px">-->
+                <!--<div class="alert alert-danger" role="alert" style="margin-bottom: 0">-->
+                    <!--<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>-->
+                    <!--<span data-th-text="#{register.error.birthdayNull}">Placeholder</span>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!-- ############################# GENDER #######################################-->
+            <!--<div class="col-md-4 col-md-offset-4">-->
+                <!--<label for="genderOption" data-th-text="#{register.gender}">Gender</label>-->
+
+                <!--<div class="form-group" id="genderOption">-->
+
+                    <!--<div class="radio-inline">-->
+                        <!--<label>-->
+                            <!--<input type="radio" id="genderOptions1" value="MALE" th:field="*{gender}"/>-->
+                            <!--<label for="genderOptions1" data-th-text="#{register.gender.male}" style="color: #737373">Male</label>-->
+                        <!--</label>-->
+                    <!--</div>-->
+                    <!--<div class="radio-inline">-->
+                        <!--<label>-->
+                            <!--<input type="radio" id="genderOptions2" value="FEMALE" th:field="*{gender}"/>-->
+                            <!--<label for="genderOptions2" data-th-text="#{register.gender.female}" style="color: #737373">Female</label>-->
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="col-md-3" data-th-if="${genderNull}" style="padding-top: 18px">-->
+                <!--<div class="alert alert-danger" role="alert" style="margin-bottom: 0">-->
+                    <!--<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>-->
+                    <!--<span data-th-text="#{register.error.genderNull}">Placeholder</span>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!-- ############################# DESCRIPTION #######################################-->
+            <!--<div class="col-md-4 col-md-offset-4">-->
+                <!--<div class="form-group">-->
+                    <!--<label for="description1" data-th-text="#{register.userdescription}">Description</label>-->
+                    <!--<textarea type="text" class="form-control" id="description1" data-th-placeholder="#{register.userdescription2}"-->
+                              <!--th:field="*{description}" rows="5" style="resize: none;" maxlength="1024"/>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-3" data-th-if="${descriptionLength}" style="padding-top: 18px">-->
+                <!--<div class="alert alert-danger" role="alert" style="margin-bottom: 0">-->
+                    <!--<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>-->
+                    <!--<span data-th-text="#{register.error.descriptionLength}">Placeholder</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-3" data-th-if="${descriptionInvalid}" style="padding-top: 18px">-->
+                <!--<div class="alert alert-danger" role="alert" style="margin-bottom: 0">-->
+                    <!--<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>-->
+                    <!--<span data-th-text="#{register.error.descriptionInvalid}">Placeholder</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-3" data-th-if="${descriptionToLong}" style="padding-top: 18px">-->
+                <!--<div class="alert alert-danger" role="alert" style="margin-bottom: 0">-->
+                    <!--<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>-->
+                    <!--<span data-th-text="#{register.error.descriptionToLong}">Placeholder</span>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!-- ############################# SUBMIT BUTTON #######################################-->
+            <div class="col-md-4 col-md-offset-4 text-center" style="padding-top: 1%;">
+                <button class="btn btn-success" type="submit" data-th-text="${submitButtonTitle}" style="min-width: 40%">
+                    Edit User !
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+</div>

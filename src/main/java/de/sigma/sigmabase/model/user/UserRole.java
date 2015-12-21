@@ -7,8 +7,8 @@ package de.sigma.sigmabase.model.user;
  * E-Mail:      satriani.vay@gmail.com
  */
 public enum UserRole {
-    ADMIN,
-    READ,
-    EDIT,
-    PUBLIC
+    PUBLIC, // 0
+    READ,   // 1
+    EDIT,   // 2
+    ADMIN   // 3
 }

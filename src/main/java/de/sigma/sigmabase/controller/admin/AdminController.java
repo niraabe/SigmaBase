@@ -53,6 +53,7 @@ public class AdminController {
             //Get the session user
             User user = userService.getUser();
             mav.addObject("user", user);
+            //For registration key generation - thymleaf/form needs it
             mav.addObject("key", new RegistrationKey());
 
             //Is the user in the role ADMIN ?
@@ -82,6 +83,7 @@ public class AdminController {
             //Get the session user
             User user = userService.getUser();
             mav.addObject("user", user);
+            //For registration key generation - thymleaf/form needs it
             mav.addObject("key", new RegistrationKey());
 
             //Is the user in the role ADMIN ?
@@ -118,6 +120,7 @@ public class AdminController {
             //Get the session user
             User user = userService.getUser();
             mav.addObject("user", user);
+            //For registration key generation - thymleaf/form needs it
             mav.addObject("key", new RegistrationKey());
 
             //Is the user in the role ADMIN ?

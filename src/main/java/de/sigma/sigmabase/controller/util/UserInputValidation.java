@@ -35,6 +35,7 @@ public class UserInputValidation {
      *
      * @param mav
      * @param username
+     * @return
      */
     public boolean validateUsername(ModelAndView mav, String username) {
         if (username == null || username.length() == 0) {
@@ -285,6 +286,7 @@ public class UserInputValidation {
      * Validates a given user object by the user input
      * Sets error parameter in the mav
      * returns true if error occurred
+     *
      * @param mav
      * @param user
      * @return
@@ -293,28 +295,28 @@ public class UserInputValidation {
 
         boolean errorflag = false;
 
-        if(validateUsername(mav, user.getUsername())) {
+        if (validateUsername(mav, user.getUsername())) {
             errorflag = true;
         }
         if (validatePassword(mav, user.getPassword())) {
             errorflag = true;
         }
-        if(validateForename(mav, user.getForename())) {
+        if (validateForename(mav, user.getForename())) {
             errorflag = true;
         }
-        if(validateSurname(mav, user.getSurname())) {
+        if (validateSurname(mav, user.getSurname())) {
             errorflag = true;
         }
-        if(validateBirthday(mav, user.getBirthday())) {
+        if (validateBirthday(mav, user.getBirthday())) {
             errorflag = true;
         }
-        if(validateGender(mav, user.getGender())) {
+        if (validateGender(mav, user.getGender())) {
             errorflag = true;
         }
-        if(validateDescription(mav, user.getDescription())) {
+        if (validateDescription(mav, user.getDescription())) {
             errorflag = true;
         }
-        if(validateEmail(mav, user.getEmail())) {
+        if (validateEmail(mav, user.getEmail())) {
             errorflag = true;
         }
         return errorflag;
@@ -325,6 +327,7 @@ public class UserInputValidation {
      * Auth User is needed for Username validation
      * Sets error parameter in the mav
      * returns true if error occurred
+     *
      * @param mav
      * @param authUser
      * @param editedUser
@@ -334,7 +337,7 @@ public class UserInputValidation {
 
         boolean errorflag = false;
 
-        if(validateEditedUsername(mav, authUser.getUsername(), editedUser.getUsername())) {
+        if (validateEditedUsername(mav, authUser.getUsername(), editedUser.getUsername())) {
             errorflag = true;
         }
         if (validateNewPassword(mav, editedUser.getPassword())) {

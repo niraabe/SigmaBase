@@ -110,33 +110,27 @@
         <!-- ############### PREVIOUS - NEXT BUTTONS ###################### -->
         <div class="row" data-th-if="${totalKeySize > 0}">
             <div class="col-md-offset-3 col-md-6 ">
-                <nav>
-                    <ul class="pager">
+                <nav class="pager">
+                    <ul>
                         <li data-th-if="${page.first == false}" class="previous">
-                            <a data-th-if="${searchpage == true}"
-                               data-th-href="@{${resolvingUrl}(page=${page.number-1}, searchvalue=${searchvalue})}"
-                               data-th-text="#{pagination.newer}"/>
+                            <a data-th-href="@{${resolvingUrl}(page=${page.number-1})}">
+                                <span aria-hidden="true">&larr; <span data-th-text="#{pagination.newer}"></span></span>
+                            </a>
+                        </li>
 
-                            <a data-th-if="${searchpage == null}" data-th-href="@{${resolvingUrl}(page=${page.number-1})}"
-                               data-th-text="#{pagination.newer}"/>
-                        </li>
-                        <li>
-                            <div data-th-text="#{pagination.page} + ' ' + ${page.number+1}"></div>
-                        </li>
+                        <span class="label label-default" data-th-text="#{pagination.page} + ' ' + ${page.number+1} + ' / ' + ${page.getTotalPages()}"/>
+
                         <li data-th-if="${page.last == false}" class="next">
-
-                            <a data-th-if="${searchpage == true}"
-                               data-th-href="@{${resolvingUrl}(page=${page.number+1}, searchvalue=${searchvalue})}"
-                               data-th-text="#{pagination.older}"/>
-
-                            <a data-th-if="${searchpage == null}" data-th-href="@{${resolvingUrl}(page=${page.number+1})}"
-                               data-th-text="#{pagination.older}"/>
+                            <a data-th-if="${searchpage == null}" data-th-href="@{${resolvingUrl}(page=${page.number+1})}">
+                                <span aria-hidden="true"><span data-th-text="#{pagination.older}"/> &rarr; </span>
+                            </a>
 
                         </li>
                     </ul>
                 </nav>
             </div>
         </div>
+
     </div>
 </div>
 

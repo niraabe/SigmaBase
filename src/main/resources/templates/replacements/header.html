@@ -42,31 +42,23 @@
                     <a data-th-text="#{user.title.tabbar}" data-th-href="@{/user}"/>
                 </li>
 
-                <!-- ############ POST DROPDOWN ####################-->
+                <!-- ############ FACILITYS DROPDOWN ####################-->
                 <li class="dropdown" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')}">
 
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-                       data-th-text="#{posts.title.tabbar}">Dropdown
+                       data-th-text="#{facilitys.title.tabbar}">Dropdown
                         <span class="caret"></span>
                     </a>
 
                     <ul class="dropdown-menu" style="padding: 15px;">
                         <li>
-                            <a data-th-href="@{/allposts}" data-th-text="#{posts.title.navbar.all}"></a>
+                            <a data-th-href="@{/facilitys}" data-th-text="#{facilitys.title.navbar.all}"></a>
                         </li>
                         <li>
-                            <a data-th-href="@{/followerposts}" data-th-text="#{posts.title.navbar.follower}"></a>
-                        </li>
-                        <li>
-                            <a data-th-href="@{/myposts}" data-th-text="#{posts.title.navbar.my}"></a>
+                            <a data-th-href="@{/addfacility}" data-th-text="#{facilitys.title.navbar.add}"></a>
                         </li>
                     </ul>
 
-                </li>
-
-                <!-- ############ ABOUT ####################-->
-                <li>
-                    <a data-th-text="#{about.title.tabbar}" data-th-href="@{/about}"/>
                 </li>
 
                 <!-- ############ SEARCH ####################-->
@@ -101,6 +93,12 @@
                     </ul>
 
                 </li>
+
+                <!-- ############ ABOUT ####################-->
+                <li>
+                    <a data-th-text="#{about.title.tabbar}" data-th-href="@{/about}"/>
+                </li>
+
             </ul>
 
             <!-- ################################## NAVBAR RIGHT SIDE #################################-->
@@ -117,16 +115,14 @@
 
                 <!-- ############ LOGIN STATUS ####################-->
                 <li class="navbar-right" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')}">
-                    <a data-th-text="#{navigation.login.status(${#httpServletRequest.remoteUser})}"
-                       data-th-href="@{/user}"/>
+                    <a data-th-text="#{navigation.login.status(${#httpServletRequest.remoteUser})}" data-th-href="@{/user}"/>
                 </li>
 
                 <!-- ############ ADMIN CENTER ####################-->
                 <li class="navbar-right" data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')}">
-                        <!--<a data-th-if="${user.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).ADMIN}"-->
+                    <!--<a data-th-if="${user.getUserRole() == T(de.sigma.sigmabase.model.user.UserRole).ADMIN}"-->
                     <!--TODO nils das hier muss noch gefixt werden !-->
-                           <a data-th-text="#{navigation.admin}"
-                           data-th-href="@{/admin}"/>
+                    <a data-th-text="#{navigation.admin}" data-th-href="@{/admin}"/>
                 </li>
 
 
@@ -162,8 +158,7 @@
 
                 <!-- ############ REGISTER ####################-->
                 <li class="navbar-right">
-                    <a data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')} == false" data-th-text="#{register.title}"
-                       data-th-href="@{/register}"/>
+                    <a data-th-if="${#httpServletRequest.isUserInRole('ROLE_USER')} == false" data-th-text="#{register.title}" data-th-href="@{/register}"/>
                 </li>
 
             </ul>

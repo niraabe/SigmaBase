@@ -31,8 +31,25 @@ public class FacilityService {
      * @return
      */
     public Page<Facility> getAllFacilitys(Pageable pageable) {
+        LOG.debug("Returning all facilitys page {}", pageable.getPageNumber());
         return facilityRepository.findAll(pageable);
     }
 
+    /**
+     * Adds / Updates a facility in the database
+     *
+     * @param facility
+     * @return
+     */
+    public Facility addFacility(Facility facility) {
+        Facility fac = facilityRepository.save(facility);
+        LOG.debug("Adding facility to DB. Facility: {}", fac);
+        return fac;
+    }
 
+    public Facility getFacilityByName(String facilityName) {
+        Facility fac = facilityRepository.findByName(facilityName);
+        LOG.debug("Found facility by name - facility: {}", fac);
+        return fac;
+    }
 }

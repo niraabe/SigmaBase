@@ -1,11 +1,9 @@
 package de.sigma.sigmabase.controller.admin;
 
 import de.sigma.sigmabase.controller.IndexController;
-import de.sigma.sigmabase.controller.util.RegistrationKeyGenerator;
 import de.sigma.sigmabase.model.user.RegistrationKey;
 import de.sigma.sigmabase.model.user.User;
 import de.sigma.sigmabase.model.user.UserRole;
-import de.sigma.sigmabase.service.RegistrationKeyService;
 import de.sigma.sigmabase.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +22,7 @@ import org.thymeleaf.util.Validate;
 
 /**
  * Controller to handle requests to the user page of the admin area
- *
+ * <p/>
  * Created by:  nilsraabe
  * Date:        10.12.15
  * Time:        21:25
@@ -107,7 +105,7 @@ public class AdminUserController {
 
         Validate.notNull(user, "User object shouldn't be null at this point !");
         User userByID = userService.getUserByID(userid);
-        if(userByID.equals(user)) {
+        if (userByID.equals(user)) {
             LOG.info("User wanted to delete himself: user: {}", user);
             return this.adminUsersPage(pageable);
         }

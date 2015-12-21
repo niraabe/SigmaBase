@@ -68,7 +68,7 @@ public class RegisterController {
      * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView registerUser(@ModelAttribute("user") User user, @ModelAttribute("key") String keyAsString, BindingResult result) {
+    public ModelAndView registerUser(@ModelAttribute("user") User user, @ModelAttribute("key") String keyAsString) {
         LOG.info("Request POST to '/register'");
 
         ModelAndView mav = new ModelAndView("register");

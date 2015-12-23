@@ -116,6 +116,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         user.setGender(Gender.MALE);
         user.setUsername("Andreas");
         user.setRegistrationKey(registrationKey);
+        user.setUserRole(UserRole.ADMIN);
 
         userService.registerUser(user);
 

@@ -64,7 +64,7 @@ public class RegisterController {
      * Request mapping for register a new user and store it in the db
      *
      * @param user
-     * @param result
+     * @param keyAsString
      * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)

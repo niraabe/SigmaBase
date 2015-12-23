@@ -1,5 +1,12 @@
 package de.sigma.sigmabase.configuration;
 
+import de.sigma.sigmabase.controller.util.RegistrationKeyGenerator;
+import de.sigma.sigmabase.model.user.Gender;
+import de.sigma.sigmabase.model.user.RegistrationKey;
+import de.sigma.sigmabase.model.user.User;
+import de.sigma.sigmabase.model.user.UserRole;
+import de.sigma.sigmabase.service.UserService;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +39,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private Environment environment;
+
+
+    @Autowired
+    private  RegistrationKeyGenerator registrationKeyGenerator;
+
+    @Autowired
+    private UserService userService;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -67,6 +82,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .password("foo")
                     .roles("USER");
             //TODO defaulöt user in DB
+            createData();
         }
 
         auth
@@ -77,4 +93,33 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select username, 'ROLE_USER' from t_user where username = ?");
 
     }
+
+    private void createData() {
+
+        String text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et " +
+                "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing " +
+                "elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd " +
+                "gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.";
+
+
+        RegistrationKey registrationKey = new RegistrationKey();
+        registrationKey.setKey(registrationKeyGenerator.generateRandomKey());
+        registrationKey.setUserRole(UserRole.ADMIN);
+
+        User user = new User();
+        user.setBirthday(new DateTime());
+        user.setEmail("andreas@raabe.de");
+        user.setPassword("andreas1234");
+        user.setDescription(text);
+        user.setForename("Andreas");
+        user.setSurname("Raabe");
+        user.setGender(Gender.MALE);
+        user.setUsername("Andreas");
+        user.setRegistrationKey(registrationKey);
+
+        userService.registerUser(user);
+
+    }
+
+
 }

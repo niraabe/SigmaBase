@@ -74,7 +74,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        if (environment.acceptsProfiles("heroku") == false) {
+        if (environment.acceptsProfiles("heroku") == true) {
             LOG.warn("Adding default user. name: user, password: foo, role: ROLE_USER");
             auth
                 .inMemoryAuthentication()

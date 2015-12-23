@@ -119,7 +119,7 @@ public class RegistrationKeyController {
     public ModelAndView deleteRegistrationKey(@PathVariable("keyid") long keyid, @PageableDefault(size = 16) Pageable pageable) {
         LOG.info("Request POST to '/admin/deleteKey/{}'", keyid);
 
-        ModelAndView mav = new ModelAndView("/admin/registrationkeys");
+        ModelAndView mav = new ModelAndView("admin/registrationkeys");
 
         //Do we have a logged in User ?
         boolean authenticated = userService.isAuthenticated();

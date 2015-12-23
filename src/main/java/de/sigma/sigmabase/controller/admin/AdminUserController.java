@@ -43,7 +43,7 @@ public class AdminUserController {
     public ModelAndView adminUsersPage(@PageableDefault(size = 16) Pageable pageable) {
         LOG.info("Request GET to '/admin/users'");
 
-        ModelAndView mav = new ModelAndView("/admin/registeredusers");
+        ModelAndView mav = new ModelAndView("admin/registeredusers");
 
         //Do we have a logged in User ?
         boolean authenticated = userService.isAuthenticated();
@@ -83,7 +83,7 @@ public class AdminUserController {
     public ModelAndView deleteUser(@PathVariable("userid") long userid, @PageableDefault(size = 16) Pageable pageable) {
         LOG.info("Request POST to '/admin/deleteuser/{}'", userid);
 
-        ModelAndView mav = new ModelAndView("/admin/users");
+        ModelAndView mav = new ModelAndView("admin/users");
 
         //Do we have a logged in User ?
         boolean authenticated = userService.isAuthenticated();

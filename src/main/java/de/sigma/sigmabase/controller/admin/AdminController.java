@@ -73,7 +73,7 @@ public class AdminController {
     public ModelAndView usedKeysPage(@PageableDefault(size = 16) Pageable pageable) {
         LOG.info("Request GET to '/admin/usedkeys'");
 
-        ModelAndView mav = new ModelAndView("/admin/registrationkeys");
+        ModelAndView mav = new ModelAndView("admin/registrationkeys");
 
         //Do we have a logged in User ?
         boolean authenticated = userService.isAuthenticated();
@@ -110,7 +110,7 @@ public class AdminController {
     public ModelAndView unusedKeysPage(@PageableDefault(size = 16) Pageable pageable) {
         LOG.info("Request GET to '/admin/unusedkeys'");
 
-        ModelAndView mav = new ModelAndView("/admin/registrationkeys");
+        ModelAndView mav = new ModelAndView("admin/registrationkeys");
 
         //Do we have a logged in User ?
         boolean authenticated = userService.isAuthenticated();

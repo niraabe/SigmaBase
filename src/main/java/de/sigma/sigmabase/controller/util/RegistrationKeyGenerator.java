@@ -66,7 +66,7 @@ public class RegistrationKeyGenerator {
         this.allCharacters = allChars;
     }
 
-    public String generatePassword() {
+    public String generateRandomKey() {
         SecureRandom rand = new SecureRandom();
 
         // Set pw length to minLength <= pwLength <= maxLength

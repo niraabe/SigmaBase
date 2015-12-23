@@ -94,7 +94,7 @@ public class RegistrationKeyController {
         //Generate a unique registration key which is not a duplicate
         String keyAsString;
         do {
-            keyAsString = registrationKeyGenerator.generatePassword();
+            keyAsString = registrationKeyGenerator.generateRandomKey();
         } while (registrationKeyService.getRegistrationKeyByKey(keyAsString) != null);
         key.setKey(keyAsString);
 

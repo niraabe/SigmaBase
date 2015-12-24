@@ -57,7 +57,7 @@ public class FacilityController {
         LOG.info("Request GET to '/facilitys'");
 
         ModelAndView mav = new ModelAndView("facilitys/facilitys");
-        mav.addObject("resolvingUrl", "facilitys/facilitys");
+        mav.addObject("resolvingUrl", "facilitys");
 
         //Do we have a logged in user ?
         boolean authenticated = userService.isAuthenticated();

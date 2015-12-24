@@ -57,7 +57,7 @@ public class FacilityController {
         LOG.info("Request GET to '/facilitys'");
 
         ModelAndView mav = new ModelAndView("facilitys/facilitys");
-        mav.addObject("resolvingUrl", "/facilitys");
+        mav.addObject("resolvingUrl", "facilitys/facilitys");
 
         //Do we have a logged in user ?
         boolean authenticated = userService.isAuthenticated();
@@ -95,7 +95,7 @@ public class FacilityController {
      */
     @RequestMapping(value = "/addfacility", method = RequestMethod.GET)
     public ModelAndView showFacilityFormular() {
-        LOG.info("Request GET to '/addfacility'");
+        LOG.info("Request GET to 'facilitys/addfacility'");
 
         ModelAndView mav = new ModelAndView("facilitys/addfacility");
         mav.addObject("resolvingUrl", "/addfacility");

@@ -10,22 +10,20 @@
     </div>
 
     <!-- ############### FACILITYS ###################### -->
-    <div class="col-md-offset-4 col-md-4 ">
+    <div class="col-md-offset-2 col-md-8 ">
 
         <table class="table">
             <thead>
             <tr>
-                <th>Anlage</th>
-                <th>Längengrad</th>
-                <th>Breitengrad</th>
+                <th data-th-text="#{facility.name}"></th>
+                <th data-th-text="#{facility.coordinate}"></th>
                 <th data-th-text="#{facility.forumUrll}"/>
             </tr>
             </thead>
             <tbody data-th-each="facility : ${facilitys}">
             <tr>
                 <td data-th-text="${facility.name}"></td>
-                <td data-th-text="${facility.latitude}"></td>
-                <td data-th-text="${facility.longitude}"></td>
+                <td data-th-text="${facility.latitude} + ' ' + ${facility.longitude}"></td>
                 <td>
                     <a data-th-text="#{facility.forumThread}" data-th-href="@{http://forum.team-sigma.de/index.php/Thread/?id=} + ${facility.forumThreadId}" target="_blank"></a>
                 </td>

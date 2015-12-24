@@ -82,8 +82,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .password("foo")
                     .roles("USER");
             //TODO defaulöt user in DB
-            createData();
         }
+        createData();
 
         auth
                 .jdbcAuthentication()

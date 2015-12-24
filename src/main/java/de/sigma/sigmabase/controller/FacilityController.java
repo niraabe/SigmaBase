@@ -95,9 +95,9 @@ public class FacilityController {
      */
     @RequestMapping(value = "/addfacility", method = RequestMethod.GET)
     public ModelAndView showFacilityFormular() {
-        LOG.info("Request GET to 'facilitys/addfacility'");
+        LOG.info("Request GET to '/addfacility'");
 
-        ModelAndView mav = new ModelAndView("facilitys/addfacility");
+        ModelAndView mav = new ModelAndView("facilitys/addFacility");
         mav.addObject("resolvingUrl", "/addfacility");
 
         //Do we have a logged in user ?
@@ -134,7 +134,7 @@ public class FacilityController {
     public ModelAndView addFacility(@ModelAttribute("facility") @Valid Facility facility, @ModelAttribute("forumThreadIdAsString") String forumThreadIdAsString,BindingResult bindingResult) {
         LOG.info("Request POST to '/addfacility'");
 
-        ModelAndView mav = new ModelAndView("facilitys/addfacility");
+        ModelAndView mav = new ModelAndView("facilitys/addFacility");
 
         //Do we have a logged in user ?
         boolean authenticated = userService.isAuthenticated();
